@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.lang.Exception;
 
-class login extends JFrame implements ActionListener{
+class LOGINPAGE extends JFrame implements ActionListener{
     JLabel login_signup;
     JPanel login_window,signup_window;
     JLabel user_id,password;
@@ -11,7 +11,7 @@ class login extends JFrame implements ActionListener{
     GridBagConstraints Gridwidth;
     JButton login_button,signup_button;
 
-    login() 
+    LOGINPAGE() 
     {
         setTitle("Music Recording Company");
 
@@ -68,50 +68,51 @@ class login extends JFrame implements ActionListener{
 
         String User_id = user_id_input.getText();
         String Password = password_input.getText();
+        System.out.println(User_id+'#'+Password);
+        if (User_id=="" && Password == ""){
+            if (ae.getSource() == login_button) {
+                this.dispose();
+                try {
 
+                    LOGINPAGE form = new LOGINPAGE();
+                    form.setSize(500, 430);
+                    form.setVisible(true);
+                    form.invalidate();
+                    form.validate();
+                    form.repaint();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
+            }
+            else if (ae.getSource() == signup_button) {
+                this.dispose();
+                try {
 
-        if (ae.getSource() == login_button) {
-            this.dispose();
-            try {
-
-                login form = new login();
-                form.setSize(500, 430);
-                form.setVisible(true);
-                form.invalidate();
-                form.validate();
-                form.repaint();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
+                    SIGNUPSCREEN form = new SIGNUPSCREEN();
+                    form.setSize(500, 400);
+                    form.setVisible(true);
+                    form.invalidate();
+                    form.validate();
+                    form.repaint();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
             }
         }
-        else if (ae.getSource() == signup_button) {
+        else{
             this.dispose();
-            try {
-
-                signup form = new signup();
-                form.setSize(500, 400);
-                form.setVisible(true);
-                form.invalidate();
-                form.validate();
-                form.repaint();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
+            Home form = new Home();
+            form.setVisible(true);
+            form.invalidate();
         }
     }
-   
-    
-    
 }
 
-
-class login_form {
-
-    public static void main(String arg[]) {
+class login{
+    public static void main(String[] args) {
         try {
-
-            login form = new login();
-            form.setSize(500, 430);
+            LOGINPAGE form = new LOGINPAGE();
+            form.setSize(500, 400);
             form.setVisible(true);
             form.invalidate();
             form.validate();
@@ -120,5 +121,4 @@ class login_form {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-
 }

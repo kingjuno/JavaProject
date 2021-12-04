@@ -5,7 +5,7 @@ import java.lang.Exception;
 
 class ArtistInfo extends JFrame implements ActionListener {
     JButton Artist_Info_Button, Song_Info_Button;
-    JButton ADD, UPDATE, REMOVE, CANCEL;
+    JButton ADD, UPDATE, REMOVE, CANCEL, BACK;
     JPanel ArtistInfoWindow, FunctionButton, Container;
     JLabel ArtistID, FirstName, LastName, Address, Phone, Email, DateOfBirth;
     JTextField ArtistIDInput, FirstNameInput, LastNameInput, AddressInput, PhoneInput, EmailInput, DateOfBirthInput;
@@ -13,6 +13,7 @@ class ArtistInfo extends JFrame implements ActionListener {
 
     ArtistInfo() {
         setTitle("Music Recording Management System");
+        setSize(500, 450);
 
         Artist_Info_Button = new JButton("Artist Info");
         Artist_Info_Button.addActionListener(this);
@@ -53,6 +54,9 @@ class ArtistInfo extends JFrame implements ActionListener {
         REMOVE = new JButton("REMOVE");
         REMOVE.addActionListener(this);
         CANCEL = new JButton("CANCEL");
+        CANCEL.addActionListener(this);
+        BACK = new JButton("BACK");
+        BACK.addActionListener(this);
 
         ArtistID.setBounds(30, 50, 100, 30);
         FirstName.setBounds(30, 90, 100, 30);
@@ -75,6 +79,7 @@ class ArtistInfo extends JFrame implements ActionListener {
         UPDATE.setBounds(140, 330, 100, 30);
         REMOVE.setBounds(250, 330, 100, 30);
         CANCEL.setBounds(360, 330, 100, 30);
+        BACK.setBounds(190, 370, 100, 30);
 
         ArtistInfoWindow.add(ArtistID);
         ArtistInfoWindow.add(FirstName);
@@ -94,6 +99,7 @@ class ArtistInfo extends JFrame implements ActionListener {
         ArtistInfoWindow.add(UPDATE);
         ArtistInfoWindow.add(REMOVE);
         ArtistInfoWindow.add(CANCEL);
+        ArtistInfoWindow.add(BACK);
         
         add(ArtistInfoWindow, BorderLayout.CENTER);
         setVisible(true);
@@ -137,23 +143,18 @@ class ArtistInfo extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
-    }
-}
+        else if (ae.getSource() == BACK) {
+            this.dispose();
+            try {
 
-class ArtistInfoForm {
-
-    public static void main(String arg[]) {
-        try {
-
-            ArtistInfo form = new ArtistInfo();
-            form.setSize(500, 430);
-            form.setVisible(true);
-            form.invalidate();
-            form.validate();
-            form.repaint();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+                Home form = new Home();
+                form.setVisible(true);
+                form.invalidate();
+                form.validate();
+                form.repaint();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         }
     }
-
 }

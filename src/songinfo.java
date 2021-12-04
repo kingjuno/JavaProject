@@ -5,7 +5,7 @@ import java.lang.Exception;
 
 class SongInfo extends JFrame implements ActionListener {
     JButton Artist_Info_Button, Song_Info_Button;
-    JButton ADD, UPDATE, REMOVE, CANCEL;
+    JButton ADD, UPDATE, REMOVE, CANCEL, BACK;
     JPanel SongInfoWindow, FunctionButton, Container;
     JLabel SongID, SongName, Artist, Duration, Album, Release_Year;
     JTextField SongIDInput, SongNameInput, ArtistInput, DurationInput, AlbumInput, Release_YearInput;
@@ -13,7 +13,7 @@ class SongInfo extends JFrame implements ActionListener {
 
     SongInfo() {
         setTitle("Music Recording Management System");
-
+        setSize(500, 450);
         Artist_Info_Button = new JButton("Artist Info");
         Artist_Info_Button.addActionListener(this);
         Song_Info_Button = new JButton("Song Info");
@@ -23,7 +23,7 @@ class SongInfo extends JFrame implements ActionListener {
         this.getContentPane().add(SongInfoWindow);
         SongInfoWindow.setLayout(null);
         SongInfoWindow.setBackground(Color.white);
-        SongInfoWindow.setBounds(0, 0, 400, 400);
+        SongInfoWindow.setBounds(0, 0, 450, 450);
         SongInfoWindow.add(Artist_Info_Button);
         Artist_Info_Button.setBounds(30, 10, 210, 30);
         SongInfoWindow.add(Song_Info_Button);
@@ -51,6 +51,9 @@ class SongInfo extends JFrame implements ActionListener {
         REMOVE = new JButton("REMOVE");
         REMOVE.addActionListener(this);
         CANCEL = new JButton("CANCEL");
+        CANCEL.addActionListener(this);
+        BACK = new JButton("BACK");
+        BACK.addActionListener(this);
 
         SongID.setBounds(30, 50, 100, 30);
         SongName.setBounds(30, 90, 100, 30);
@@ -70,6 +73,7 @@ class SongInfo extends JFrame implements ActionListener {
         UPDATE.setBounds(140, 300, 100, 30);
         REMOVE.setBounds(250, 300, 100, 30);
         CANCEL.setBounds(360, 300, 100, 30);
+        BACK.setBounds(190, 350, 100, 30);
 
         SongInfoWindow.add(SongID);
         SongInfoWindow.add(SongName);
@@ -87,6 +91,7 @@ class SongInfo extends JFrame implements ActionListener {
         SongInfoWindow.add(UPDATE);
         SongInfoWindow.add(REMOVE);
         SongInfoWindow.add(CANCEL);
+        SongInfoWindow.add(BACK);
         
         add(SongInfoWindow, BorderLayout.CENTER);
         setVisible(true);
@@ -108,7 +113,6 @@ class SongInfo extends JFrame implements ActionListener {
             try {
 
                 ArtistInfo form = new ArtistInfo();
-                form.setSize(500, 430);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
@@ -122,7 +126,19 @@ class SongInfo extends JFrame implements ActionListener {
             try {
 
                 SongInfo form = new SongInfo();
-                form.setSize(500, 400);
+                form.setVisible(true);
+                form.invalidate();
+                form.validate();
+                form.repaint();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+        else if (ae.getSource() == BACK) {
+            this.dispose();
+            try {
+
+                Home form = new Home();
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
@@ -133,21 +149,4 @@ class SongInfo extends JFrame implements ActionListener {
         }
     }
 
-}
-
-class SongInfoForm {
-
-    public static void main(String arg[]) {
-        try {
-
-            SongInfo form = new SongInfo();
-            form.setSize(500, 400);
-            form.setVisible(true);
-            form.invalidate();
-            form.validate();
-            form.repaint();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
 }

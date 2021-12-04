@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.lang.Exception;
 
-class signup extends JFrame implements ActionListener{
+class SIGNUPSCREEN extends JFrame implements ActionListener{
     JLabel login_signup;
     JPanel login_window,signup_window;
     JLabel user_id,password,email,cpassword,roles;
@@ -13,7 +13,7 @@ class signup extends JFrame implements ActionListener{
      
 
 
-    signup() 
+    SIGNUPSCREEN() 
     {
         setTitle("Music Recording Company");
 
@@ -99,7 +99,7 @@ class signup extends JFrame implements ActionListener{
             this.dispose();
             try {
 
-                signup form = new signup();
+                SIGNUPSCREEN form = new SIGNUPSCREEN();
                 form.setSize(500, 430);
                 form.setVisible(true);
                 form.invalidate();
@@ -113,7 +113,7 @@ class signup extends JFrame implements ActionListener{
             this.dispose();
             try {
 
-                login form = new login();
+                LOGINPAGE form = new LOGINPAGE();
                 form.setSize(500, 400);
                 form.setVisible(true);
                 form.invalidate();
@@ -130,12 +130,12 @@ class signup extends JFrame implements ActionListener{
 }
 
 
-class signup_form {
+class signup {
 
     public static void main(String arg[]) {
         try {
 
-            signup form = new signup();
+            SIGNUPSCREEN form = new SIGNUPSCREEN();
             form.setSize(500, 430);
             form.setVisible(true);
             form.invalidate();
