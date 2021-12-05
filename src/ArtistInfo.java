@@ -154,5 +154,17 @@ public class ArtistInfo extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
+        else if (ae.getSource() == ADD)    {
+    
+        }
+        else if (ae.getSource() == UPDATE) {
+            
+        }
+        else if (ae.getSource() == REMOVE) {
+            
+        }
+        else if (ae.getSource() == CANCEL) {
+            
+        }
     }
 }
