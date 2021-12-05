@@ -148,13 +148,25 @@ public class SongInfo extends JFrame implements ActionListener {
             }
         }
         else if (ae.getSource() == ADD)    {
-    
+            // JDBC CONNECTION HERE
+            /*
+            [TODO]:
+            1. Add Artist
+            */
         }
         else if (ae.getSource() == UPDATE) {
-            
+            // JDBC CONNECTION HERE
+            /*
+            [TODO]:
+            1. Update Artist
+            */
         }
         else if (ae.getSource() == REMOVE) {
-            
+            // JDBC CONNECTION HERE
+            /*
+            [TODO]:
+            1. Remove Artist
+            */
         }
         else if (ae.getSource() == CANCEL) {
             
