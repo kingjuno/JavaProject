@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.lang.Exception;
 
-class LOGINPAGE extends JFrame implements ActionListener{
+public class LOGINPAGE extends JFrame implements ActionListener{
     JLabel login_signup;
     JPanel login_window,signup_window;
     JLabel user_id,password;

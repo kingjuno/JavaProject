@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-class Home extends JFrame implements ActionListener{
+public class Home extends JFrame implements ActionListener{
     JPanel Home ;
     JButton btn_1,btn_2,btn_3, btn_4;
     JLabel Search, home;

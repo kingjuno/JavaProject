@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-class viewDetail extends JFrame implements ActionListener{
+public class viewDetail extends JFrame implements ActionListener{
     JPanel SongInfoWindow ;
     JButton b;
     JLabel Search;
@@ -33,6 +33,7 @@ class viewDetail extends JFrame implements ActionListener{
         cb.setBounds(100, 50, 200, 30);
         Input.setBounds(325, 50,130, 30);
         b.setBounds(175, 100, 100, 20);
+        b.addActionListener(this);
         Output.setBounds(30, 150,425, 200);
 
         Output.setEditable(false); 

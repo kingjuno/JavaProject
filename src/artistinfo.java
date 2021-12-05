@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.lang.Exception;
 
-class ArtistInfo extends JFrame implements ActionListener {
+public class ArtistInfo extends JFrame implements ActionListener {
     JButton Artist_Info_Button, Song_Info_Button;
     JButton ADD, UPDATE, REMOVE, CANCEL, BACK;
     JPanel ArtistInfoWindow, FunctionButton, Container;
