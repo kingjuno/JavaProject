@@ -66,5 +66,19 @@ public class viewDetail extends JFrame implements ActionListener{
         else
             Output.setText("Search by Song Name not Album Name");
 
+        // JDBC CONNECTION HERE
+        /*
+        [TODO]:
+        1. Connect to the database
+        2.1.a Search for the song
+        2.1.b If found, display the song details
+        2.1.c If not found, display "No such song found"
+        2.2.a Search for the artist
+        2.2.b If found, display the artist details
+        2.2.c If not found, display "No such artist found"
+        2.3.a Search for the album
+        2.3.b If found, display the album details
+        2.3.c If not found, display "No such album found"
+        */
     }
 }

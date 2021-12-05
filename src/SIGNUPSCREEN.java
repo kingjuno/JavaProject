@@ -99,7 +99,13 @@ public class SIGNUPSCREEN extends JFrame implements ActionListener{
         if (ae.getSource() == signup_button) {
             this.dispose();
             if(User_id == "" && Password == ""){
-                
+                // JDBC CONNECTION HERE
+                /*
+                [TODO]:
+                1. Check if user exists
+                2. Check if password is valid
+                3. If correct, GO TO HOME PAGE
+                */
             }
             else{
                 this.dispose();

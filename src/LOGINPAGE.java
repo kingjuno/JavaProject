@@ -72,21 +72,16 @@ public class LOGINPAGE extends JFrame implements ActionListener{
         System.out.println(User_id+'#'+Password);
         if (ae.getSource() == login_button) {
             if (User_id=="" && Password == ""){
-                // this.dispose();
-                // try {
-
-                //     LOGINPAGE form = new LOGINPAGE();
-                //     form.setSize(500, 430);
-                //     form.setVisible(true);
-                //     form.invalidate();
-                //     form.validate();
-                //     form.repaint();
-                // } catch (Exception e) {
-                //     JOptionPane.showMessageDialog(null, e.getMessage());
-                // }
+                // JDBC CONNECTION HERE
+                /*
+                [TODO]:
+                1. Check if user exists
+                2. Check if password is correct
+                3. If correct, GO TO HOME PAGE
+                */
             }
             else{
-                // for now typing something is fine
+                // for now ay user and password not empty something is fine
                 // will fix this after connecting to DB
                 this.dispose();
                 Home form = new Home();
