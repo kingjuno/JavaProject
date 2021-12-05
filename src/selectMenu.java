@@ -6,7 +6,7 @@ import java.awt.event.*;
 class Home extends JFrame implements ActionListener{
     JPanel Home ;
     JButton btn_1,btn_2,btn_3, btn_4;
-    JLabel Search;
+    JLabel Search, home;
     JTextField Input,Output;
     Font font;
     JComboBox<String> cb;
@@ -18,22 +18,27 @@ class Home extends JFrame implements ActionListener{
         Home = new JPanel();
         this.getContentPane().add(Home);
         Home.setLayout(null);
-        Home.setBackground(Color.white);
+        Home.setBackground(new Color(143, 134, 118));
+
+        home = new JLabel("Home");
+        home.setFont(new Font("Serif",Font.BOLD,25));
+        home.setBounds(250,10,200,50);
+        Home.add(home);
 
         btn_1 = new JButton("Add Song");
-        btn_1.setBounds(25, 59, 118, 21);
+        btn_1.setBounds(25, 180, 118, 21);
         Home.add(btn_1);
 
         btn_2 = new JButton("View Details");
-		btn_2.setBounds(269, 59, 125, 21);
+		btn_2.setBounds(269, 180, 125, 21);
 		Home.add(btn_2);
 		
 		btn_3 = new JButton("Exit");
-		btn_3.setBounds(409, 59, 105, 21);
+		btn_3.setBounds(409, 180, 105, 21);
 		Home.add(btn_3);
 
         btn_4 = new JButton("Add Artist");
-        btn_4.setBounds(153, 59, 105, 21);
+        btn_4.setBounds(153, 180, 105, 21);
         Home.add(btn_4);
 
         btn_1.addActionListener(this);

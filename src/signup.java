@@ -16,7 +16,7 @@ class SIGNUPSCREEN extends JFrame implements ActionListener{
     SIGNUPSCREEN() 
     {
         setTitle("Music Recording Company");
-
+        setSize(500,450);
 
         login_button = new JButton("Login");
         login_button.addActionListener(this);
@@ -24,9 +24,9 @@ class SIGNUPSCREEN extends JFrame implements ActionListener{
         signup_button.addActionListener(this);
 
         signup_window = new JPanel();
+        signup_window.setBackground(new Color(143, 134, 118));
         this.getContentPane().add(signup_window);
         signup_window.setLayout(null);
-        signup_window.setBackground(Color.white);
         signup_window.setBounds(0, 0, 400, 400);
         signup_window.add(login_button);
         login_button.setBounds(400,400,400,400);
@@ -44,6 +44,7 @@ class SIGNUPSCREEN extends JFrame implements ActionListener{
 
 
         login_signup = new JLabel("Signup");
+        login_signup.setFont(new Font("Serif",Font.BOLD,25));
 
         user_id_input = new JTextField();
         password_input = new JTextField();
@@ -97,16 +98,14 @@ class SIGNUPSCREEN extends JFrame implements ActionListener{
 
         if (ae.getSource() == signup_button) {
             this.dispose();
-            try {
-
-                SIGNUPSCREEN form = new SIGNUPSCREEN();
-                form.setSize(500, 430);
+            if(User_id == "" && Password == ""){
+                
+            }
+            else{
+                this.dispose();
+                Home form = new Home();
                 form.setVisible(true);
                 form.invalidate();
-                form.validate();
-                form.repaint();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
         else if (ae.getSource() ==  login_button) {
@@ -127,23 +126,4 @@ class SIGNUPSCREEN extends JFrame implements ActionListener{
    
     
     
-}
-
-
-class signup {
-
-    public static void main(String arg[]) {
-        try {
-
-            SIGNUPSCREEN form = new SIGNUPSCREEN();
-            form.setSize(500, 430);
-            form.setVisible(true);
-            form.invalidate();
-            form.validate();
-            form.repaint();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
-
 }

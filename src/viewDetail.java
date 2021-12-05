@@ -16,7 +16,7 @@ class viewDetail extends JFrame implements ActionListener{
         SongInfoWindow = new JPanel();
         this.getContentPane().add(SongInfoWindow);
         SongInfoWindow.setLayout(null);
-        SongInfoWindow.setBackground(Color.white);
+        SongInfoWindow.setBackground(new Color(143, 134, 118));
         SongInfoWindow.setBounds(0, 0, 400, 400);
         
         Search = new JLabel("Search by:");

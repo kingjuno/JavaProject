@@ -15,16 +15,15 @@ class LOGINPAGE extends JFrame implements ActionListener{
     {
         setTitle("Music Recording Company");
 
-
         login_button = new JButton("Login");
         login_button.addActionListener(this);
         signup_button = new JButton("Sign Up");
         signup_button.addActionListener(this);
 
         login_window = new JPanel();
+        login_window.setBackground(new Color(143,134,118));
         this.getContentPane().add(login_window);
         login_window.setLayout(null);
-        login_window.setBackground(Color.white);
         login_window.setBounds(0, 0, 400, 400);
         login_window.add(login_button);
         login_button.setBounds(400,400,400,400);
@@ -33,6 +32,8 @@ class LOGINPAGE extends JFrame implements ActionListener{
         user_id = new JLabel("User ID");
         password = new JLabel("Password");
         login_signup = new JLabel("Login");
+
+        login_signup.setFont(new Font("Serif",Font.BOLD,25));
 
         user_id_input = new JTextField();
         password_input = new JTextField();
@@ -69,56 +70,42 @@ class LOGINPAGE extends JFrame implements ActionListener{
         String User_id = user_id_input.getText();
         String Password = password_input.getText();
         System.out.println(User_id+'#'+Password);
-        if (User_id=="" && Password == ""){
-            if (ae.getSource() == login_button) {
-                this.dispose();
-                try {
+        if (ae.getSource() == login_button) {
+            if (User_id=="" && Password == ""){
+                // this.dispose();
+                // try {
 
-                    LOGINPAGE form = new LOGINPAGE();
-                    form.setSize(500, 430);
-                    form.setVisible(true);
-                    form.invalidate();
-                    form.validate();
-                    form.repaint();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                }
+                //     LOGINPAGE form = new LOGINPAGE();
+                //     form.setSize(500, 430);
+                //     form.setVisible(true);
+                //     form.invalidate();
+                //     form.validate();
+                //     form.repaint();
+                // } catch (Exception e) {
+                //     JOptionPane.showMessageDialog(null, e.getMessage());
+                // }
             }
-            else if (ae.getSource() == signup_button) {
+            else{
+                // for now typing something is fine
+                // will fix this after connecting to DB
                 this.dispose();
-                try {
-
-                    SIGNUPSCREEN form = new SIGNUPSCREEN();
-                    form.setSize(500, 400);
-                    form.setVisible(true);
-                    form.invalidate();
-                    form.validate();
-                    form.repaint();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                }
+                Home form = new Home();
+                form.setVisible(true);
+                form.invalidate();
             }
+            
         }
-        else{
+        else if (ae.getSource() == signup_button) {
             this.dispose();
-            Home form = new Home();
-            form.setVisible(true);
-            form.invalidate();
-        }
-    }
-}
-
-class login{
-    public static void main(String[] args) {
-        try {
-            LOGINPAGE form = new LOGINPAGE();
-            form.setSize(500, 400);
-            form.setVisible(true);
-            form.invalidate();
-            form.validate();
-            form.repaint();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            try {
+                SIGNUPSCREEN form = new SIGNUPSCREEN();
+                form.setVisible(true);
+                form.invalidate();
+                form.validate();
+                form.repaint();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         }
     }
 }

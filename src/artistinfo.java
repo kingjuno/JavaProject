@@ -23,7 +23,7 @@ class ArtistInfo extends JFrame implements ActionListener {
         ArtistInfoWindow = new JPanel();
         this.getContentPane().add(ArtistInfoWindow);
         ArtistInfoWindow.setLayout(null);
-        ArtistInfoWindow.setBackground(Color.white);
+        ArtistInfoWindow.setBackground(new Color(143, 134, 118));
         ArtistInfoWindow.setBounds(0, 0, 400, 400);
         ArtistInfoWindow.add(Artist_Info_Button);
         Artist_Info_Button.setBounds(30, 10, 210, 30);
@@ -120,7 +120,6 @@ class ArtistInfo extends JFrame implements ActionListener {
             try {
 
                 ArtistInfo form = new ArtistInfo();
-                form.setSize(500, 430);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
@@ -134,7 +133,6 @@ class ArtistInfo extends JFrame implements ActionListener {
             try {
 
                 SongInfo form = new SongInfo();
-                form.setSize(500, 400);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();

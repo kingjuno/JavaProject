@@ -22,7 +22,7 @@ class SongInfo extends JFrame implements ActionListener {
         SongInfoWindow = new JPanel();
         this.getContentPane().add(SongInfoWindow);
         SongInfoWindow.setLayout(null);
-        SongInfoWindow.setBackground(Color.white);
+        SongInfoWindow.setBackground(new Color(143, 134, 118));
         SongInfoWindow.setBounds(0, 0, 450, 450);
         SongInfoWindow.add(Artist_Info_Button);
         Artist_Info_Button.setBounds(30, 10, 210, 30);
