@@ -3,20 +3,17 @@ import java.sql.DriverManager;
 
 import javax.swing.JOptionPane;
 
+import sqlUtils.ConnectDB;
+
 public class Driver {
     public static void main(String[] args) {
-        try {
-            // # jdbc connection
-            String url = "jdbc:postgresql://localhost:5432/postgres";
-            String user = "geo";
-            String password = "6023";
-            Class.forName("org.postgresql.Driver");
-            Connection con = DriverManager.getConnection(url, user, password);
-            System.out.println("Connected");
-        }
-        catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
+        String username = "";
+        String password = "";
+        String url = "jdbc:postgresql://localhost:5432/music_recording_system";
+
+        ConnectDB connectDB = new ConnectDB(username, password, url);
+        Connection con = connectDB.getConnection();
+
         try {
             LOGINPAGE form = new LOGINPAGE();
             form.setVisible(true);
