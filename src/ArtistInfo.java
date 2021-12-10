@@ -30,7 +30,6 @@ public class ArtistInfo extends JFrame implements ActionListener {
         ArtistInfoWindow.add(Song_Info_Button);
         Song_Info_Button.setBounds(250, 10, 210, 30);
 
-
         ArtistID = new JLabel("Artist ID");
         FirstName = new JLabel("First Name");
         LastName = new JLabel("Last Name");
@@ -38,7 +37,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
         Phone = new JLabel("Phone");
         Email = new JLabel("Email");
         DateOfBirth = new JLabel("Date of Birth");
-        
+
         ArtistIDInput = new JTextField();
         FirstNameInput = new JTextField();
         LastNameInput = new JTextField();
@@ -60,16 +59,15 @@ public class ArtistInfo extends JFrame implements ActionListener {
 
         ArtistID.setBounds(30, 50, 100, 30);
         FirstName.setBounds(30, 90, 100, 30);
-        LastName.setBounds(30, 130, 100, 30);   
+        LastName.setBounds(30, 130, 100, 30);
         Address.setBounds(30, 170, 100, 30);
         Phone.setBounds(30, 210, 100, 30);
         Email.setBounds(30, 250, 100, 30);
         DateOfBirth.setBounds(30, 290, 100, 30);
-    
 
         ArtistIDInput.setBounds(170, 50, 290, 30);
         FirstNameInput.setBounds(170, 90, 290, 30);
-        LastNameInput.setBounds(170, 130, 290, 30);     
+        LastNameInput.setBounds(170, 130, 290, 30);
         AddressInput.setBounds(170, 170, 290, 30);
         PhoneInput.setBounds(170, 210, 290, 30);
         EmailInput.setBounds(170, 250, 290, 30);
@@ -100,14 +98,15 @@ public class ArtistInfo extends JFrame implements ActionListener {
         ArtistInfoWindow.add(REMOVE);
         ArtistInfoWindow.add(CANCEL);
         ArtistInfoWindow.add(BACK);
-        
+
         add(ArtistInfoWindow, BorderLayout.CENTER);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
+
     public void actionPerformed(ActionEvent ae) {
-    	String artistid = ArtistIDInput.getText();
+        String artistid = ArtistIDInput.getText();
         String firstname = FirstNameInput.getText();
         String lastname = LastNameInput.getText();
         String address = AddressInput.getText();
@@ -127,8 +126,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-        }
-        else if (ae.getSource() == Song_Info_Button) {
+        } else if (ae.getSource() == Song_Info_Button) {
             this.dispose();
             try {
 
@@ -140,8 +138,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-        }
-        else if (ae.getSource() == BACK) {
+        } else if (ae.getSource() == BACK) {
             this.dispose();
             try {
 
@@ -153,30 +150,26 @@ public class ArtistInfo extends JFrame implements ActionListener {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-        }
-        else if (ae.getSource() == ADD)    {
+        } else if (ae.getSource() == ADD) {
             // JDBC CONNECTION HERE
             /*
-            [TODO]:
-            1. Add Artist
-            */
-        }
-        else if (ae.getSource() == UPDATE) {
+             * [TODO]:
+             * 1. Add Artist
+             */
+        } else if (ae.getSource() == UPDATE) {
             // JDBC CONNECTION HERE
             /*
-            [TODO]:
-            1. Update Artist
-            */
-        }
-        else if (ae.getSource() == REMOVE) {
+             * [TODO]:
+             * 1. Update Artist
+             */
+        } else if (ae.getSource() == REMOVE) {
             // JDBC CONNECTION HERE
             /*
-            [TODO]:
-            1. Remove Artist
-            */
-        }
-        else if (ae.getSource() == CANCEL) {
-            
+             * [TODO]:
+             * 1. Remove Artist
+             */
+        } else if (ae.getSource() == CANCEL) {
+
         }
     }
 }

@@ -63,7 +63,7 @@ public class LOGINPAGE extends JFrame implements ActionListener{
         this.getContentPane().add(loginHead);
 
         logo = new JLabel("");
-        logo.setIcon(new ImageIcon(this.getClass().getResource("assets/background1.png")));
+        logo.setIcon(new ImageIcon(this.getClass().getResource("assets/background.png")));
         logo.setBounds(-141, 10, 439, 278);
         this.getContentPane().add(logo);
     }
