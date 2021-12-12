@@ -6,6 +6,9 @@ import UIutils.transparentButton;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.Exception;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 public class SIGNUPSCREEN extends JFrame implements ActionListener{
     JLabel login_signup;
@@ -18,10 +21,12 @@ public class SIGNUPSCREEN extends JFrame implements ActionListener{
     JPasswordField password_input;
     String Options[]={"User","Artist","Admin"};
     JComboBox<String> comboBox;
+	Connection con;
 
-    SIGNUPSCREEN() 
+    SIGNUPSCREEN(Connection con) 
     {
-        setTitle("Music Recording Company");
+        this.con=con;
+		setTitle("Music Recording Company");
 		this.setTitle("Music Recording Company");
 		this.getContentPane().setBackground(new Color(66, 68, 67));
 		this.getContentPane().setForeground(Color.WHITE);
@@ -38,8 +43,9 @@ public class SIGNUPSCREEN extends JFrame implements ActionListener{
 		Login.setBounds(143, 280, 118, 21);
 		this.getContentPane().add(Login);
 		
-		OpaqueButton Signup = new OpaqueButton("Sign Up");
+		Signup = new OpaqueButton("Sign Up");
 		Signup.setBounds(295, 280, 105, 21);
+		Signup.addActionListener(this);
 		this.getContentPane().add(Signup);
 		
 		user_id_input = new JTextField();
@@ -98,53 +104,67 @@ public class SIGNUPSCREEN extends JFrame implements ActionListener{
 
     }
 
+	public static boolean patternMatches(String emailAddress, String regexPattern) {
+		return Pattern.compile(regexPattern)
+		  .matcher(emailAddress)
+		  .matches();
+	}
+
+	boolean validate(String username, String password, String email){
+		if(username.length()<=4 && username.length()>=20){
+			JOptionPane.showMessageDialog(null, "Username cannot be empty");
+			return false;
+		}
+		if(password.length()<=8 && password.length()>=20){
+			JOptionPane.showMessageDialog(null, "Password cannot be empty");
+			return false;
+		}
+		if(email.length()<=0){
+			JOptionPane.showMessageDialog(null, "Email cannot be empty");
+			return false;
+		}
+		if(!patternMatches(email, "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")){
+			JOptionPane.showMessageDialog(null, "Invalid Email");
+			return false;
+		}
+		return true;
+	}
+
     public void actionPerformed(ActionEvent ae) {
 
+        if (ae.getSource() == Signup) {
+			System.out.println("Signup");
+			String User_id_input = user_id_input.getText();
+			String Password_input = password_input.getText();
+			String Email_input = email_input.getText();
+			String Role_input = (String) comboBox.getSelectedItem();
 
-        // String User_id = user_id_input.getText();
-        // String Password = password_input.getText();
+			if (validate(User_id_input, Password_input, Email_input)) {
+				try {
+					String query = "insert into user_info(user_id,password,email,role) values('" + User_id_input + "','"
+							+ Password_input + "','" + Email_input + "','" + Role_input + "')";
+					con.createStatement().executeUpdate(query);
+					JOptionPane.showMessageDialog(null, "Sign Up Successful");
+					this.dispose();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "User already exists");
+				}
+			}
 
-
-        // if (ae.getSource() == signup_button) {
-        //     this.dispose();
-        //     if(User_id == "" && Password == ""){
-        //         // JDBC CONNECTION HERE
-        //         /*
-        //         [TODO]:
-        //         1. Check if user exists
-        //         2. Check if password is valid
-        //         3. If correct, GO TO HOME PAGE
-        //         */
-        //     }
-        //     else{
-        //         this.dispose();
-        //         Home form = new Home();
-        //         form.setVisible(true);
-        //         form.invalidate();
-        //     }
-        // }
-        // else if (ae.getSource() ==  login_button) {
-        //     this.dispose();
-        //     try {
-
-        //         LOGINPAGE form = new LOGINPAGE();
-        //         form.setSize(500, 400);
-        //         form.setVisible(true);
-        //         form.invalidate();
-        //         form.validate();
-        //         form.repaint();
-        //     } catch (Exception e) {
-        //         JOptionPane.showMessageDialog(null, e.getMessage());
-        //     }
-        // }
+        }
+        else if (ae.getSource() ==  Login) {
+            //rewrite current jframe with LOGIN CLASS
+        }
     }
-   public static void main(String[] args) {
-        SIGNUPSCREEN form = new SIGNUPSCREEN();
-        form.setVisible(true);
-        form.invalidate();
-        form.validate();
-        form.repaint();
-    }
+//    public static void main(String[] args) {
+//         SIGNUPSCREEN form = new SIGNUPSCREEN();
+//         form.setVisible(true);
+//         form.invalidate();
+//         form.validate();
+//         form.repaint();
+//     }
     
     
 }
