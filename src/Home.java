@@ -58,7 +58,7 @@ public class Home extends JFrame implements ActionListener{
             this.dispose();
             try {
 
-                SongInfo form = new SongInfo();
+                SongInfo form = new SongInfo(con);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
@@ -88,7 +88,7 @@ public class Home extends JFrame implements ActionListener{
             this.dispose();
             try {
 
-                ArtistInfo form = new ArtistInfo();
+                ArtistInfo form = new ArtistInfo(con);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();

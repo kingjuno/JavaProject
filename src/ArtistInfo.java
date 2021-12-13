@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.Exception;
+import java.sql.*;
 
 public class ArtistInfo extends JFrame implements ActionListener {
     JButton Artist_Info_Button, Song_Info_Button;
@@ -9,9 +10,10 @@ public class ArtistInfo extends JFrame implements ActionListener {
     JPanel ArtistInfoWindow, FunctionButton, Container;
     JLabel ArtistID, FirstName, LastName, Address, Phone, Email, DateOfBirth;
     JTextField ArtistIDInput, FirstNameInput, LastNameInput, AddressInput, PhoneInput, EmailInput, DateOfBirthInput;
-    GridBagConstraints gridwidth;
+    Connection con;
 
-    ArtistInfo() {
+    ArtistInfo(Connection con) {
+        this.con = con;
         setTitle("Music Recording Management System");
         setSize(500, 450);
 
@@ -118,7 +120,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
             this.dispose();
             try {
 
-                ArtistInfo form = new ArtistInfo();
+                ArtistInfo form = new ArtistInfo(con);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
@@ -130,7 +132,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
             this.dispose();
             try {
 
-                SongInfo form = new SongInfo();
+                SongInfo form = new SongInfo(con);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();

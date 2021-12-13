@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.Exception;
+import java.sql.Connection;
+import java.sql.*;
 
 public class SongInfo extends JFrame implements ActionListener {
     JButton Artist_Info_Button, Song_Info_Button;
@@ -9,9 +11,10 @@ public class SongInfo extends JFrame implements ActionListener {
     JPanel SongInfoWindow, FunctionButton, Container;
     JLabel SongID, SongName, Artist, Duration, Album, Release_Year;
     JTextField SongIDInput, SongNameInput, ArtistInput, DurationInput, AlbumInput, Release_YearInput;
-    GridBagConstraints gridwidth;
+    Connection con;
 
-    SongInfo() {
+    SongInfo(Connection con) {
+        this.con = con;
         setTitle("Music Recording Management System");
         setSize(500, 450);
         Artist_Info_Button = new JButton("Artist Info");
@@ -107,12 +110,19 @@ public class SongInfo extends JFrame implements ActionListener {
         String album = AlbumInput.getText();
         String release_year = Release_YearInput.getText();
 
+        // check if song_info table exists
+        // try{
+        //     String sql = "SELECT * FROM song_info";
+        //     java.sql.Statement stmt = con.createStatement();
+        //     java.sql.ResultSet rs = stmt.executeQuery(sql);
+
+        // }
 
         if (ae.getSource() == Artist_Info_Button) {
             this.dispose();
             try {
 
-                ArtistInfo form = new ArtistInfo();
+                ArtistInfo form = new ArtistInfo(con);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
@@ -125,7 +135,7 @@ public class SongInfo extends JFrame implements ActionListener {
             this.dispose();
             try {
 
-                SongInfo form = new SongInfo();
+                SongInfo form = new SongInfo(con);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
@@ -138,7 +148,7 @@ public class SongInfo extends JFrame implements ActionListener {
             this.dispose();
             try {
 
-                Home form = new Home(null);
+                Home form = new Home(con);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
