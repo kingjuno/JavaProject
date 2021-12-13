@@ -7,7 +7,7 @@ import java.sql.Connection;
 public class Home extends JFrame implements ActionListener{
     JPanel Home ;
     JButton btn_1,btn_2,btn_3, btn_4;
-    JLabel Search, home;
+    JLabel Search, home,icon;
     JTextField Input,Output;
     Font font;
     JComboBox<String> cb;
@@ -21,27 +21,34 @@ public class Home extends JFrame implements ActionListener{
         Home = new JPanel();
         this.getContentPane().add(Home);
         Home.setLayout(null);
-        Home.setBackground(new Color(143, 134, 118));
+        Home.setBackground(new Color(68,67,68));
 
-        home = new JLabel("Home");
-        home.setFont(new Font("Serif",Font.BOLD,25));
+        
+        icon = new JLabel("");
+		icon.setIcon(new ImageIcon(this.getClass().getResource("assets/background.png")));
+		icon.setBounds(0, 69, 398, 149);
+		this.getContentPane().add(icon);
+
+        home = new JLabel("HOME");
+        home.setFont(new Font("Tw Cen MT Condensed Extra Bold",Font.PLAIN,25));
+        home.setForeground(new Color(240, 255, 255));
         home.setBounds(250,10,200,50);
         Home.add(home);
 
         btn_1 = new JButton("Add Song");
-        btn_1.setBounds(25, 180, 118, 21);
+        btn_1.setBounds(10, 273, 128, 21);
         Home.add(btn_1);
 
         btn_2 = new JButton("View Details");
-		btn_2.setBounds(269, 180, 125, 21);
+		btn_2.setBounds(283, 273, 122, 21);
 		Home.add(btn_2);
 		
 		btn_3 = new JButton("Exit");
-		btn_3.setBounds(409, 180, 105, 21);
+		btn_3.setBounds(415, 273, 128, 21);
 		Home.add(btn_3);
 
         btn_4 = new JButton("Add Artist");
-        btn_4.setBounds(153, 180, 105, 21);
+        btn_4.setBounds(148, 273, 122, 21);
         Home.add(btn_4);
 
         btn_1.addActionListener(this);
