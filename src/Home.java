@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
 
 
 public class Home extends JFrame implements ActionListener{
@@ -10,8 +11,10 @@ public class Home extends JFrame implements ActionListener{
     JTextField Input,Output;
     Font font;
     JComboBox<String> cb;
+    Connection con;
 
-    Home() {
+    Home(Connection con) {
+        this.con = con;
         setTitle("Music Recording Management System");
         
 		this.setBounds(100, 100, 564, 408);

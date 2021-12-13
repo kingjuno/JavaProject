@@ -14,7 +14,7 @@ public class Driver {
         Connection con = connectDB.getConnection();
 
         try {
-            SIGNUPSCREEN form = new SIGNUPSCREEN(con);
+            LOGINPAGE form = new LOGINPAGE(con);
             form.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());

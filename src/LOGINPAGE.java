@@ -1,20 +1,25 @@
 import javax.swing.*;
 
 import UIutils.*;
+import sqlUtils.CheckForData;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
 
 public class LOGINPAGE extends JFrame implements ActionListener{
     JLabel user_id,password, logo, loginHead;
-    JTextField textField;
+    JTextField user_input;
+    JPasswordField password_input;
     GridBagConstraints Gridwidth;
     JPasswordField passwordField;
-    OpaqueButton login;
-    transparentButton signup;
+    OpaqueButton Login;
+    transparentButton Signup;
+    Connection con;
 
-    LOGINPAGE() 
+    LOGINPAGE(Connection con) 
     {
+        this.con = con;
         setTitle("Music Recording Company");
 
         this.getContentPane().setBackground(new Color(66, 68, 67));
@@ -24,25 +29,25 @@ public class LOGINPAGE extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setLayout(null);
 
-        login = new OpaqueButton("Login");
-        login.addActionListener(this);
-        login.setBounds(143, 280, 118, 21);
-        this.getContentPane().add(login);
+        Login = new OpaqueButton("Login");
+        Login.addActionListener(this);
+        Login.setBounds(143, 280, 118, 21);
+        this.getContentPane().add(Login);
         
-        signup = new transparentButton("Sign Up");
-        signup.setBounds(295, 280, 105, 21);
-        this.getContentPane().add(signup);
-        signup.addActionListener(this);
+        Signup = new transparentButton("Sign Up");
+        Signup.setBounds(295, 280, 105, 21);
+        this.getContentPane().add(Signup);
+        Signup.addActionListener(this);
 
         
-        passwordField = new JPasswordField();
-        passwordField.setBounds(347, 167, 142, 19);
-        this.getContentPane().add(passwordField);
+        password_input = new JPasswordField();
+        password_input.setBounds(347, 167, 142, 19);
+        this.getContentPane().add(password_input);
 
-        textField = new JTextField();
-        textField.setBounds(347, 120, 142, 19);
-        this.getContentPane().add(textField);
-        textField.setColumns(10);
+        user_input = new JTextField();
+        user_input.setBounds(347, 120, 142, 19);
+        this.getContentPane().add(user_input);
+        user_input.setColumns(10);
         
         user_id = new JLabel("UserName");
         user_id.setForeground(Color.WHITE);
@@ -69,48 +74,31 @@ public class LOGINPAGE extends JFrame implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == Login) {
+			System.out.println("Login Event");
+			String User_id_input = user_input.getText();
+			String Password_input = password_input.getText();
 
-        // String User_id = user_id_input.getText();
-        // String Password = password_input.getText();
-        // System.out.println(User_id+'#'+Password);
-        // if (ae.getSource() == login_button) {
-        //     if (User_id=="" && Password == ""){
-        //         // JDBC CONNECTION HERE
-        //         /*
-        //         [TODO]:
-        //         1. Check if user exists
-        //         2. Check if password is correct
-        //         3. If correct, GO TO HOME PAGE
-        //         */
-        //     }
-        //     else{
-        //         // for now ay user and password not empty something is fine
-        //         // will fix this after connecting to DB
-        //         this.dispose();
-        //         Home form = new Home();
-        //         form.setVisible(true);
-        //         form.invalidate();
-        //     }
-            
-        // }
-        // else if (ae.getSource() == signup_button) {
-        //     this.dispose();
-        //     try {
-        //         SIGNUPSCREEN form = new SIGNUPSCREEN();
-        //         form.setVisible(true);
-        //         form.invalidate();
-        //         form.validate();
-        //         form.repaint();
-        //     } catch (Exception e) {
-        //         JOptionPane.showMessageDialog(null, e.getMessage());
-        //     }
-        // }
-    }
-    public static void main(String[] args) {
-        LOGINPAGE form = new LOGINPAGE();
-        form.setVisible(true);
-        form.invalidate();
-        form.validate();
-        form.repaint();
-    }
+            if (User_id_input.equals("") || Password_input.equals("")) {
+                JOptionPane.showMessageDialog(null, "Please fill all the fields");
+            } else {
+                String query = "select * from user_info where user_id = '" + User_id_input + "' and password = '" + Password_input + "'";
+                CheckForData check = new CheckForData(con);
+                if (check.check_data_exist(query)){
+                    Home home = new Home(con);
+                    home.setVisible(true);
+                    this.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Login Failed");
+                }
+            }
+
+		} else if (ae.getSource() == Signup) {
+			System.out.println("Signup Event");
+			SIGNUPSCREEN loginpage = new SIGNUPSCREEN(con);
+			loginpage.setVisible(true);
+			this.dispose();
+		}
+    }   
 }

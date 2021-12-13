@@ -138,7 +138,7 @@ public class SongInfo extends JFrame implements ActionListener {
             this.dispose();
             try {
 
-                Home form = new Home();
+                Home form = new Home(null);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
