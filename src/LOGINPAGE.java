@@ -26,11 +26,12 @@ public class LOGINPAGE extends JFrame implements ActionListener{
 
         login = new OpaqueButton("Login");
         login.addActionListener(this);
-        login.setBounds(143, 280, 118, 21);
+        login.setBounds(143, 280, 105, 30);
         this.getContentPane().add(login);
         
         signup = new transparentButton("Sign Up");
-        signup.setBounds(295, 280, 105, 21);
+        signup.setBounds(347, 280, 105, 30);
+        signup.setForeground(Color.WHITE);
         this.getContentPane().add(signup);
         signup.addActionListener(this);
 

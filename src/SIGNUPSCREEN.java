@@ -40,11 +40,12 @@ public class SIGNUPSCREEN extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		Login.setBounds(143, 280, 118, 21);
+		Login.setBounds(143, 280, 105, 30);
+		Login.setForeground(Color.WHITE);
 		this.getContentPane().add(Login);
 		
 		Signup = new OpaqueButton("Sign Up");
-		Signup.setBounds(295, 280, 105, 21);
+		Signup.setBounds(347, 280, 105, 30);
 		Signup.addActionListener(this);
 		this.getContentPane().add(Signup);
 		
