@@ -54,49 +54,49 @@ public class Home extends JFrame implements ActionListener{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     public void actionPerformed(ActionEvent ae) {
-        // if (ae.getSource() == btn_1) {
-        //     this.dispose();
-        //     try {
+         if (ae.getSource() == btn_1) {
+            this.dispose();
+            try {
 
-        //         SongInfo form = new SongInfo();
-        //         form.setVisible(true);
-        //         form.invalidate();
-        //         form.validate();
-        //         form.repaint();
-        //     } catch (Exception e) {
-        //         JOptionPane.showMessageDialog(null, e.getMessage());
-        //     }
-        // }
-        // if (ae.getSource() == btn_2) {
-        //     this.dispose();
-        //     try {
+                SongInfo form = new SongInfo();
+                form.setVisible(true);
+                form.invalidate();
+                form.validate();
+                form.repaint();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+        if (ae.getSource() == btn_2) {
+            this.dispose();
+            try {
 
-        //         viewDetail form = new viewDetail();
-        //         form.setSize(500, 400);
-        //         form.setVisible(true);
-        //         form.invalidate();
-        //         form.validate();
-        //         form.repaint();
-        //     } catch (Exception e) {
-        //         JOptionPane.showMessageDialog(null, e.getMessage());
-        //     }
-        // }
-        // if (ae.getSource() == btn_3) {
-        //     System.exit(0);
-        // }
-        // if (ae.getSource() == btn_4) {
-        //     this.dispose();
-        //     try {
+                viewDetail form = new viewDetail();
+                form.setSize(500, 400);
+                form.setVisible(true);
+                form.invalidate();
+                form.validate();
+                form.repaint();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+        if (ae.getSource() == btn_3) {
+            System.exit(0);
+        }
+        if (ae.getSource() == btn_4) {
+            this.dispose();
+            try {
 
-        //         ArtistInfo form = new ArtistInfo();
-        //         form.setVisible(true);
-        //         form.invalidate();
-        //         form.validate();
-        //         form.repaint();
-        //     } catch (Exception e) {
-        //         JOptionPane.showMessageDialog(null, e.getMessage());
-        //     }
-        // }
+                ArtistInfo form = new ArtistInfo();
+                form.setVisible(true);
+                form.invalidate();
+                form.validate();
+                form.repaint();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+         }
 
     }
 }
