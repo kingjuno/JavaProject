@@ -2,10 +2,13 @@ import javax.swing.*;
 
 import UIutils.*;
 import sqlUtils.CheckForData;
+import sqlUtils.GetRole;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 public class LOGINPAGE extends JFrame implements ActionListener{
     JLabel user_id,password, logo, loginHead;
@@ -86,7 +89,11 @@ public class LOGINPAGE extends JFrame implements ActionListener{
                 String query = "select * from user_info where user_id = '" + User_id_input + "' and password = '" + Password_input + "'";
                 CheckForData check = new CheckForData(con);
                 if (check.check_data_exist(query)){
-                    Home home = new Home(con);
+                    Hashtable<String,String> userDictionary = new Hashtable<String,String>();
+                    userDictionary.put("username",User_id_input);
+                    GetRole role = new GetRole(con,User_id_input);
+                    userDictionary.put("role",role.getRolename());
+                    Home home = new Home(con, userDictionary);
                     home.setVisible(true);
                     this.dispose();
                 }

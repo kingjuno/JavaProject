@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
+import java.util.Hashtable;
 
 
 public class Home extends JFrame implements ActionListener{
@@ -12,9 +13,12 @@ public class Home extends JFrame implements ActionListener{
     Font font;
     JComboBox<String> cb;
     Connection con;
+    String Username;
+    Hashtable<String,String> userdata;
 
-    Home(Connection con) {
+    Home(Connection con, Hashtable<String, String> userdata) {
         this.con = con;
+        this.userdata = userdata;
         setTitle("Music Recording Management System");
         
 		this.setBounds(100, 100, 564, 408);
@@ -65,7 +69,7 @@ public class Home extends JFrame implements ActionListener{
             this.dispose();
             try {
 
-                SongInfo form = new SongInfo(con);
+                SongInfo form = new SongInfo(con, userdata);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
@@ -95,7 +99,7 @@ public class Home extends JFrame implements ActionListener{
             this.dispose();
             try {
 
-                ArtistInfo form = new ArtistInfo(con);
+                ArtistInfo form = new ArtistInfo(con, userdata);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();

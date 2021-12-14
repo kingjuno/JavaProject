@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.lang.Exception;
 import java.sql.Connection;
+import java.util.Hashtable;
 import java.sql.*;
 
 public class SongInfo extends JFrame implements ActionListener {
@@ -12,9 +13,11 @@ public class SongInfo extends JFrame implements ActionListener {
     JLabel SongID, SongName, Artist, Duration, Album, Release_Year;
     JTextField SongIDInput, SongNameInput, ArtistInput, DurationInput, AlbumInput, Release_YearInput;
     Connection con;
+    Hashtable<String, String> userdata;
 
-    SongInfo(Connection con) {
+    SongInfo(Connection con, Hashtable<String, String> userdata) {
         this.con = con;
+        this.userdata = userdata;
         setTitle("Music Recording Management System");
         setSize(500, 450);
         Artist_Info_Button = new JButton("Artist Info");
@@ -122,7 +125,7 @@ public class SongInfo extends JFrame implements ActionListener {
             this.dispose();
             try {
 
-                ArtistInfo form = new ArtistInfo(con);
+                ArtistInfo form = new ArtistInfo(con, userdata);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
@@ -135,7 +138,7 @@ public class SongInfo extends JFrame implements ActionListener {
             this.dispose();
             try {
 
-                SongInfo form = new SongInfo(con);
+                SongInfo form = new SongInfo(con, userdata);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
@@ -148,7 +151,7 @@ public class SongInfo extends JFrame implements ActionListener {
             this.dispose();
             try {
 
-                Home form = new Home(con);
+                Home form = new Home(con, userdata);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();

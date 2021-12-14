@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.lang.Exception;
 import java.sql.*;
+import java.util.Hashtable;
 
 public class ArtistInfo extends JFrame implements ActionListener {
     JButton Artist_Info_Button, Song_Info_Button;
@@ -11,9 +12,12 @@ public class ArtistInfo extends JFrame implements ActionListener {
     JLabel ArtistID, FirstName, LastName, Address, Phone, Email, DateOfBirth;
     JTextField ArtistIDInput, FirstNameInput, LastNameInput, AddressInput, PhoneInput, EmailInput, DateOfBirthInput;
     Connection con;
+    Hashtable<String, String> userdata;
 
-    ArtistInfo(Connection con) {
+    ArtistInfo(Connection con, Hashtable<String, String> userdata) {
         this.con = con;
+        this.userdata = userdata;
+        System.out.println(userdata.get("role"));
         setTitle("Music Recording Management System");
         setSize(500, 450);
 
@@ -120,7 +124,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
             this.dispose();
             try {
 
-                ArtistInfo form = new ArtistInfo(con);
+                ArtistInfo form = new ArtistInfo(con, userdata);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
@@ -132,7 +136,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
             this.dispose();
             try {
 
-                SongInfo form = new SongInfo(con);
+                SongInfo form = new SongInfo(con, userdata);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
@@ -144,7 +148,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
             this.dispose();
             try {
 
-                Home form = new Home(null);
+                Home form = new Home(con, userdata);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();

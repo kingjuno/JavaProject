@@ -150,6 +150,9 @@ public class SIGNUPSCREEN extends JFrame implements ActionListener {
 							+ Password_input + "','" + Email_input + "','" + Role_input + "')";
 					con.createStatement().executeUpdate(query);
 					JOptionPane.showMessageDialog(null, "Sign Up Successful");
+					LOGINPAGE lp = new LOGINPAGE(con);
+					lp.setVisible(true);
+					this.dispose();
 				} catch (SQLException e) {
 					e.printStackTrace();
 					CreateUserTable createUserTable = new CreateUserTable(con);
