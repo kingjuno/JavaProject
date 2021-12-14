@@ -10,7 +10,7 @@ import java.util.Hashtable;
 
 public class ArtistInfo extends JFrame implements ActionListener {
     JButton Artist_Info_Button, Song_Info_Button;
-    JButton ADD, UPDATE, REMOVE, CANCEL, BACK;
+    JButton ADD, UPDATE, REMOVE, CLEAR, BACK;
     JPanel ArtistInfoWindow, FunctionButton, Container;
     JLabel FirstName, LastName, Address, Phone, Email, DateOfBirth;
     JTextField FirstNameInput, LastNameInput, AddressInput, PhoneInput, EmailInput, DateOfBirthInput;
@@ -58,8 +58,8 @@ public class ArtistInfo extends JFrame implements ActionListener {
         UPDATE.addActionListener(this);
         REMOVE = new JButton("REMOVE");
         REMOVE.addActionListener(this);
-        CANCEL = new JButton("CANCEL");
-        CANCEL.addActionListener(this);
+        CLEAR = new JButton("CLEAR");
+        CLEAR.addActionListener(this);
         BACK = new JButton("BACK");
         BACK.addActionListener(this);
 
@@ -86,7 +86,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
         ADD.setBounds(65, 330, 100, 30);
         UPDATE.setBounds(175, 330, 100, 30);
         REMOVE.setBounds(285, 330, 100, 30);
-        CANCEL.setBounds(395, 330, 100, 30);
+        CLEAR.setBounds(395, 330, 100, 30);
         BACK.setBounds(225, 370, 100, 30);
 
         ArtistInfoWindow.add(FirstName);
@@ -104,7 +104,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
         ArtistInfoWindow.add(ADD);
         ArtistInfoWindow.add(UPDATE);
         ArtistInfoWindow.add(REMOVE);
-        ArtistInfoWindow.add(CANCEL);
+        ArtistInfoWindow.add(CLEAR);
         ArtistInfoWindow.add(BACK);
 
         add(ArtistInfoWindow, BorderLayout.CENTER);
@@ -243,7 +243,18 @@ public class ArtistInfo extends JFrame implements ActionListener {
             catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-        } else if (ae.getSource() == CANCEL) {
+        } else if (ae.getSource() == CLEAR) {
+            try {
+                FirstNameInput.setText("");
+                LastNameInput.setText("");
+                AddressInput.setText("");
+                PhoneInput.setText("");
+                EmailInput.setText("");
+                DateOfBirthInput.setText("");
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 
         }
     }catch(Exception e){

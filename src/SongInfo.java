@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class SongInfo extends JFrame implements ActionListener {
     JButton Artist_Info_Button, Song_Info_Button;
-    JButton ADD, UPDATE, REMOVE, CANCEL, BACK;
+    JButton ADD, UPDATE, REMOVE, CLEAR, BACK;
     JPanel SongInfoWindow, FunctionButton, Container;
     JLabel SongID, SongName, Artist, Duration, Album, Release_Year;
     JTextField SongIDInput, SongNameInput, ArtistInput, DurationInput, AlbumInput, Release_YearInput;
@@ -56,8 +56,8 @@ public class SongInfo extends JFrame implements ActionListener {
         UPDATE.addActionListener(this);
         REMOVE = new JButton("REMOVE");
         REMOVE.addActionListener(this);
-        CANCEL = new JButton("CANCEL");
-        CANCEL.addActionListener(this);
+        CLEAR = new JButton("CLEAR");
+        CLEAR.addActionListener(this);
         BACK = new JButton("BACK");
         BACK.addActionListener(this);
 
@@ -84,7 +84,7 @@ public class SongInfo extends JFrame implements ActionListener {
         ADD.setBounds(65, 330, 100, 30);
         UPDATE.setBounds(175, 330, 100, 30);
         REMOVE.setBounds(285, 330, 100, 30);
-        CANCEL.setBounds(395, 330, 100, 30);
+        CLEAR.setBounds(395, 330, 100, 30);
         BACK.setBounds(225, 370, 100, 30);
 
         SongInfoWindow.add(SongID);
@@ -102,7 +102,7 @@ public class SongInfo extends JFrame implements ActionListener {
         SongInfoWindow.add(ADD);
         SongInfoWindow.add(UPDATE);
         SongInfoWindow.add(REMOVE);
-        SongInfoWindow.add(CANCEL);
+        SongInfoWindow.add(CLEAR);
         SongInfoWindow.add(BACK);
         
         add(SongInfoWindow, BorderLayout.CENTER);
@@ -187,7 +187,20 @@ public class SongInfo extends JFrame implements ActionListener {
             1. Remove Artist
             */
         }
-        else if (ae.getSource() == CANCEL) {
+        else if (ae.getSource() == CLEAR) {
+            try {
+              
+                SongIDInput.setText("");
+                SongNameInput.setText("");
+                ArtistInput.setText("");
+                DurationInput.setText("");
+                AlbumInput.setText("");
+                Release_YearInput.setText("");
+
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
             
         }
     }
