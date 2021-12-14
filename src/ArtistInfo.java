@@ -19,7 +19,6 @@ public class ArtistInfo extends JFrame implements ActionListener {
         this.userdata = userdata;
         System.out.println(userdata.get("role"));
         setTitle("Music Recording Management System");
-        setSize(500, 450);
 
         Artist_Info_Button = new JButton("Artist Info");
         Artist_Info_Button.addActionListener(this);
@@ -29,12 +28,13 @@ public class ArtistInfo extends JFrame implements ActionListener {
         ArtistInfoWindow = new JPanel();
         this.getContentPane().add(ArtistInfoWindow);
         ArtistInfoWindow.setLayout(null);
-        ArtistInfoWindow.setBackground(new Color(143, 134, 118));
-        ArtistInfoWindow.setBounds(0, 0, 400, 400);
+        ArtistInfoWindow.setBackground(new Color(68,67,68));
+        this.setBounds(100, 100, 564, 450);
+        
         ArtistInfoWindow.add(Artist_Info_Button);
-        Artist_Info_Button.setBounds(30, 10, 210, 30);
+        Artist_Info_Button.setBounds(65, 10, 210, 30);
         ArtistInfoWindow.add(Song_Info_Button);
-        Song_Info_Button.setBounds(250, 10, 210, 30);
+        Song_Info_Button.setBounds(285, 10, 210, 30);
 
         ArtistID = new JLabel("Artist ID");
         FirstName = new JLabel("First Name");
@@ -63,27 +63,32 @@ public class ArtistInfo extends JFrame implements ActionListener {
         BACK = new JButton("BACK");
         BACK.addActionListener(this);
 
-        ArtistID.setBounds(30, 50, 100, 30);
-        FirstName.setBounds(30, 90, 100, 30);
-        LastName.setBounds(30, 130, 100, 30);
-        Address.setBounds(30, 170, 100, 30);
-        Phone.setBounds(30, 210, 100, 30);
-        Email.setBounds(30, 250, 100, 30);
-        DateOfBirth.setBounds(30, 290, 100, 30);
+    
+        FirstName.setBounds(65, 70, 100, 30);
+        FirstName.setForeground(Color.WHITE);
+        LastName.setBounds(65, 110, 100, 30);
+        LastName.setForeground(Color.WHITE);
+        Address.setBounds(65, 150, 100, 30);
+        Address.setForeground(Color.WHITE);
+        Phone.setBounds(65, 190, 100, 30);
+        Phone.setForeground(Color.WHITE);
+        Email.setBounds(65, 230, 100, 30);
+        Email.setForeground(Color.WHITE);
+        DateOfBirth.setBounds(65, 270, 100, 30);
+        DateOfBirth.setForeground(Color.WHITE);
 
-        ArtistIDInput.setBounds(170, 50, 290, 30);
-        FirstNameInput.setBounds(170, 90, 290, 30);
-        LastNameInput.setBounds(170, 130, 290, 30);
-        AddressInput.setBounds(170, 170, 290, 30);
-        PhoneInput.setBounds(170, 210, 290, 30);
-        EmailInput.setBounds(170, 250, 290, 30);
-        DateOfBirthInput.setBounds(170, 290, 290, 30);
+        FirstNameInput.setBounds(210, 70, 285, 30);
+        LastNameInput.setBounds(210, 110, 285, 30);
+        AddressInput.setBounds(210, 150, 285, 30);
+        PhoneInput.setBounds(210, 190, 285, 30);
+        EmailInput.setBounds(210, 230, 285, 30);
+        DateOfBirthInput.setBounds(210, 270, 285, 30);
 
-        ADD.setBounds(30, 330, 100, 30);
-        UPDATE.setBounds(140, 330, 100, 30);
-        REMOVE.setBounds(250, 330, 100, 30);
-        CANCEL.setBounds(360, 330, 100, 30);
-        BACK.setBounds(190, 370, 100, 30);
+        ADD.setBounds(65, 330, 100, 30);
+        UPDATE.setBounds(175, 330, 100, 30);
+        REMOVE.setBounds(285, 330, 100, 30);
+        CANCEL.setBounds(395, 330, 100, 30);
+        BACK.setBounds(225, 370, 100, 30);
 
         ArtistInfoWindow.add(ArtistID);
         ArtistInfoWindow.add(FirstName);
