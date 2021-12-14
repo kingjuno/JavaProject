@@ -1,4 +1,7 @@
 import javax.swing.*;
+
+import sqlUtils.CreateArtistTable;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.Exception;
@@ -9,15 +12,14 @@ public class ArtistInfo extends JFrame implements ActionListener {
     JButton Artist_Info_Button, Song_Info_Button;
     JButton ADD, UPDATE, REMOVE, CANCEL, BACK;
     JPanel ArtistInfoWindow, FunctionButton, Container;
-    JLabel ArtistID, FirstName, LastName, Address, Phone, Email, DateOfBirth;
-    JTextField ArtistIDInput, FirstNameInput, LastNameInput, AddressInput, PhoneInput, EmailInput, DateOfBirthInput;
+    JLabel FirstName, LastName, Address, Phone, Email, DateOfBirth;
+    JTextField FirstNameInput, LastNameInput, AddressInput, PhoneInput, EmailInput, DateOfBirthInput;
     Connection con;
     Hashtable<String, String> userdata;
 
     ArtistInfo(Connection con, Hashtable<String, String> userdata) {
         this.con = con;
         this.userdata = userdata;
-        System.out.println(userdata.get("role"));
         setTitle("Music Recording Management System");
 
         Artist_Info_Button = new JButton("Artist Info");
@@ -28,15 +30,14 @@ public class ArtistInfo extends JFrame implements ActionListener {
         ArtistInfoWindow = new JPanel();
         this.getContentPane().add(ArtistInfoWindow);
         ArtistInfoWindow.setLayout(null);
-        ArtistInfoWindow.setBackground(new Color(68,67,68));
+        ArtistInfoWindow.setBackground(new Color(68, 67, 68));
         this.setBounds(100, 100, 564, 450);
-        
+
         ArtistInfoWindow.add(Artist_Info_Button);
         Artist_Info_Button.setBounds(65, 10, 210, 30);
         ArtistInfoWindow.add(Song_Info_Button);
         Song_Info_Button.setBounds(285, 10, 210, 30);
 
-        ArtistID = new JLabel("Artist ID");
         FirstName = new JLabel("First Name");
         LastName = new JLabel("Last Name");
         Address = new JLabel("Address");
@@ -44,7 +45,6 @@ public class ArtistInfo extends JFrame implements ActionListener {
         Email = new JLabel("Email");
         DateOfBirth = new JLabel("Date of Birth");
 
-        ArtistIDInput = new JTextField();
         FirstNameInput = new JTextField();
         LastNameInput = new JTextField();
         AddressInput = new JTextField();
@@ -63,7 +63,6 @@ public class ArtistInfo extends JFrame implements ActionListener {
         BACK = new JButton("BACK");
         BACK.addActionListener(this);
 
-    
         FirstName.setBounds(65, 70, 100, 30);
         FirstName.setForeground(Color.WHITE);
         LastName.setBounds(65, 110, 100, 30);
@@ -90,14 +89,12 @@ public class ArtistInfo extends JFrame implements ActionListener {
         CANCEL.setBounds(395, 330, 100, 30);
         BACK.setBounds(225, 370, 100, 30);
 
-        ArtistInfoWindow.add(ArtistID);
         ArtistInfoWindow.add(FirstName);
         ArtistInfoWindow.add(LastName);
         ArtistInfoWindow.add(Address);
         ArtistInfoWindow.add(Phone);
         ArtistInfoWindow.add(Email);
         ArtistInfoWindow.add(DateOfBirth);
-        ArtistInfoWindow.add(ArtistIDInput);
         ArtistInfoWindow.add(FirstNameInput);
         ArtistInfoWindow.add(LastNameInput);
         ArtistInfoWindow.add(AddressInput);
@@ -117,13 +114,22 @@ public class ArtistInfo extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent ae) {
-        String artistid = ArtistIDInput.getText();
+        try{
         String firstname = FirstNameInput.getText();
         String lastname = LastNameInput.getText();
         String address = AddressInput.getText();
         String phone = PhoneInput.getText();
+        long phone_number = 0;
+        if(ae.getSource() != REMOVE)phone_number = Long.parseLong(phone);
         String email = EmailInput.getText();
+        java.sql.Date sqlDate = null;
         String dateofbirth = DateOfBirthInput.getText();
+        if(ae.getSource() != REMOVE){
+            java.util.Date date = new java.util.Date(dateofbirth);
+            sqlDate = new java.sql.Date(date.getTime());
+        }
+        
+
 
         if (ae.getSource() == Artist_Info_Button) {
             this.dispose();
@@ -162,25 +168,88 @@ public class ArtistInfo extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         } else if (ae.getSource() == ADD) {
-            // JDBC CONNECTION HERE
-            /*
-             * [TODO]:
-             * 1. Add Artist
-             */
+            // check if any content is empty
+            if (firstname.equals("") || lastname.equals("") || address.equals("") || phone.equals("") || email.equals("") || dateofbirth.equals("")) {
+                JOptionPane.showMessageDialog(null, "Please fill all the fields");
+            }  
+            try {
+                String sql = "SELECT * FROM artist_info";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.executeQuery();
+            } catch (Exception e) {
+                CreateArtistTable form = new CreateArtistTable(con);
+                form.createTable();
+                JOptionPane.showMessageDialog(null, "Artist Info Table is created");
+            }
+            try {
+                String sql = "INSERT INTO artist_info (artist_id, first_name, last_name, address, phone, email, dob) VALUES (?,?,?,?,?,?,?)";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, userdata.get("username"));
+                pst.setString(2, firstname);
+                pst.setString(3, lastname);
+                pst.setString(4, address);
+                pst.setLong(5, phone_number);
+                pst.setString(6, email);
+                pst.setDate(7, sqlDate);
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Artist Added");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         } else if (ae.getSource() == UPDATE) {
-            // JDBC CONNECTION HERE
-            /*
-             * [TODO]:
-             * 1. Update Artist
-             */
+            try {
+                String sql = "SELECT * FROM artist_info where artist_id = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, userdata.get("username"));
+                ResultSet rs = pst.executeQuery();
+                //if no record found display add artist
+                if (!rs.next()) {
+                    JOptionPane.showMessageDialog(null, "Add artist Details first");
+                }
+                else {
+                    String sql1 = "UPDATE artist_info SET first_name = ?, last_name = ?, address = ?, phone = ?, email = ?, dob = ? WHERE artist_id = ?";
+                    PreparedStatement pst1 = con.prepareStatement(sql1);
+                    pst1.setString(1, firstname);
+                    pst1.setString(2, lastname);
+                    pst1.setString(3, address);
+                    pst1.setLong(4, phone_number);
+                    pst1.setString(5, email);
+                    pst1.setDate(6, sqlDate);
+                    pst1.setString(7, userdata.get("username"));
+                    pst1.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Artist Details Updated");
+                }
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         } else if (ae.getSource() == REMOVE) {
-            // JDBC CONNECTION HERE
-            /*
-             * [TODO]:
-             * 1. Remove Artist
-             */
+            try {
+                String sql = "SELECT * FROM artist_info where artist_id = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, userdata.get("username"));
+                ResultSet rs = pst.executeQuery();
+                if (!rs.next()) {
+                    JOptionPane.showMessageDialog(null, "Add artist Details first");
+                }
+                else {
+                    String sql1 = "DELETE FROM artist_info WHERE artist_id = ?";
+                    PreparedStatement pst1 = con.prepareStatement(sql1);
+                    pst1.setString(1, userdata.get("username"));
+                    pst1.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Artist Removed");
+                }
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         } else if (ae.getSource() == CANCEL) {
 
         }
+    }catch(Exception e){
+        JOptionPane.showMessageDialog(null, "Invalid Input");
+        return;
+    }
+
     }
 }

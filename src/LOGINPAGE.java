@@ -7,7 +7,6 @@ import sqlUtils.GetRole;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
-import java.util.Dictionary;
 import java.util.Hashtable;
 
 public class LOGINPAGE extends JFrame implements ActionListener{

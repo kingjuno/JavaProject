@@ -3,8 +3,6 @@ package UIutils;
 import java.awt.*;
 import javax.swing.*;
 
-import UIutils.*;
-
 public class OpaqueButton extends JButton {
     public OpaqueButton(String text) {
         super(text);
