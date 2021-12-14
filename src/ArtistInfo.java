@@ -114,23 +114,6 @@ public class ArtistInfo extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent ae) {
-        try{
-        String firstname = FirstNameInput.getText();
-        String lastname = LastNameInput.getText();
-        String address = AddressInput.getText();
-        String phone = PhoneInput.getText();
-        long phone_number = 0;
-        if(ae.getSource() != REMOVE)phone_number = Long.parseLong(phone);
-        String email = EmailInput.getText();
-        java.sql.Date sqlDate = null;
-        String dateofbirth = DateOfBirthInput.getText();
-        if(ae.getSource() != REMOVE){
-            java.util.Date date = new java.util.Date(dateofbirth);
-            sqlDate = new java.sql.Date(date.getTime());
-        }
-        
-
-
         if (ae.getSource() == Artist_Info_Button) {
             this.dispose();
             try {
@@ -143,6 +126,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
+            return;
         } else if (ae.getSource() == Song_Info_Button) {
             this.dispose();
             try {
@@ -155,6 +139,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
+            return;
         } else if (ae.getSource() == BACK) {
             this.dispose();
             try {
@@ -167,82 +152,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-        } else if (ae.getSource() == ADD) {
-            // check if any content is empty
-            if (firstname.equals("") || lastname.equals("") || address.equals("") || phone.equals("") || email.equals("") || dateofbirth.equals("")) {
-                JOptionPane.showMessageDialog(null, "Please fill all the fields");
-            }  
-            try {
-                String sql = "SELECT * FROM artist_info";
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.executeQuery();
-            } catch (Exception e) {
-                CreateArtistTable form = new CreateArtistTable(con);
-                form.createTable();
-                JOptionPane.showMessageDialog(null, "Artist Info Table is created");
-            }
-            try {
-                String sql = "INSERT INTO artist_info (artist_id, first_name, last_name, address, phone, email, dob) VALUES (?,?,?,?,?,?,?)";
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, userdata.get("username"));
-                pst.setString(2, firstname);
-                pst.setString(3, lastname);
-                pst.setString(4, address);
-                pst.setLong(5, phone_number);
-                pst.setString(6, email);
-                pst.setDate(7, sqlDate);
-                pst.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Artist Added");
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
-        } else if (ae.getSource() == UPDATE) {
-            try {
-                String sql = "SELECT * FROM artist_info where artist_id = ?";
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, userdata.get("username"));
-                ResultSet rs = pst.executeQuery();
-                //if no record found display add artist
-                if (!rs.next()) {
-                    JOptionPane.showMessageDialog(null, "Add artist Details first");
-                }
-                else {
-                    String sql1 = "UPDATE artist_info SET first_name = ?, last_name = ?, address = ?, phone = ?, email = ?, dob = ? WHERE artist_id = ?";
-                    PreparedStatement pst1 = con.prepareStatement(sql1);
-                    pst1.setString(1, firstname);
-                    pst1.setString(2, lastname);
-                    pst1.setString(3, address);
-                    pst1.setLong(4, phone_number);
-                    pst1.setString(5, email);
-                    pst1.setDate(6, sqlDate);
-                    pst1.setString(7, userdata.get("username"));
-                    pst1.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Artist Details Updated");
-                }
-            }
-            catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        } else if (ae.getSource() == REMOVE) {
-            try {
-                String sql = "SELECT * FROM artist_info where artist_id = ?";
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, userdata.get("username"));
-                ResultSet rs = pst.executeQuery();
-                if (!rs.next()) {
-                    JOptionPane.showMessageDialog(null, "Add artist Details first");
-                }
-                else {
-                    String sql1 = "DELETE FROM artist_info WHERE artist_id = ?";
-                    PreparedStatement pst1 = con.prepareStatement(sql1);
-                    pst1.setString(1, userdata.get("username"));
-                    pst1.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Artist Removed");
-                }
-            }
-            catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+            return;
         } else if (ae.getSource() == CLEAR) {
             try {
                 FirstNameInput.setText("");
@@ -251,16 +161,105 @@ public class ArtistInfo extends JFrame implements ActionListener {
                 PhoneInput.setText("");
                 EmailInput.setText("");
                 DateOfBirthInput.setText("");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-
+            return;
         }
-    }catch(Exception e){
-        JOptionPane.showMessageDialog(null, "Invalid Input");
-        return;
-    }
+        try {
+            String firstname = FirstNameInput.getText();
+            String lastname = LastNameInput.getText();
+            String address = AddressInput.getText();
+            String phone = PhoneInput.getText();
+            long phone_number = 0;
+            if (ae.getSource() != REMOVE)
+                phone_number = Long.parseLong(phone);
+            String email = EmailInput.getText();
+            java.sql.Date sqlDate = null;
+            String dateofbirth = DateOfBirthInput.getText();
+            if (ae.getSource() != REMOVE) {
+                java.util.Date date = new java.util.Date(dateofbirth);
+                sqlDate = new java.sql.Date(date.getTime());
+            }
+
+            if (ae.getSource() == ADD) {
+                // check if any content is empty
+                if (firstname.equals("") || lastname.equals("") || address.equals("") || phone.equals("")
+                        || email.equals("") || dateofbirth.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Please fill all the fields");
+                }
+                try {
+                    String sql = "SELECT * FROM artist_info";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.executeQuery();
+                } catch (Exception e) {
+                    CreateArtistTable form = new CreateArtistTable(con);
+                    form.createTable();
+                    JOptionPane.showMessageDialog(null, "Artist Info Table is created");
+                }
+                try {
+                    String sql = "INSERT INTO artist_info (artist_id, first_name, last_name, address, phone, email, dob) VALUES (?,?,?,?,?,?,?)";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, userdata.get("username"));
+                    pst.setString(2, firstname);
+                    pst.setString(3, lastname);
+                    pst.setString(4, address);
+                    pst.setLong(5, phone_number);
+                    pst.setString(6, email);
+                    pst.setDate(7, sqlDate);
+                    pst.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Artist Added");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
+            } else if (ae.getSource() == UPDATE) {
+                try {
+                    String sql = "SELECT * FROM artist_info where artist_id = ?";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, userdata.get("username"));
+                    ResultSet rs = pst.executeQuery();
+                    // if no record found display add artist
+                    if (!rs.next()) {
+                        JOptionPane.showMessageDialog(null, "Add artist Details first");
+                    } else {
+                        String sql1 = "UPDATE artist_info SET first_name = ?, last_name = ?, address = ?, phone = ?, email = ?, dob = ? WHERE artist_id = ?";
+                        PreparedStatement pst1 = con.prepareStatement(sql1);
+                        pst1.setString(1, firstname);
+                        pst1.setString(2, lastname);
+                        pst1.setString(3, address);
+                        pst1.setLong(4, phone_number);
+                        pst1.setString(5, email);
+                        pst1.setDate(6, sqlDate);
+                        pst1.setString(7, userdata.get("username"));
+                        pst1.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "Artist Details Updated");
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (ae.getSource() == REMOVE) {
+                try {
+                    String sql = "SELECT * FROM artist_info where artist_id = ?";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, userdata.get("username"));
+                    ResultSet rs = pst.executeQuery();
+                    if (!rs.next()) {
+                        JOptionPane.showMessageDialog(null, "Add artist Details first");
+                    } else {
+                        String sql1 = "DELETE FROM artist_info WHERE artist_id = ?";
+                        PreparedStatement pst1 = con.prepareStatement(sql1);
+                        pst1.setString(1, userdata.get("username"));
+                        pst1.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "Artist Removed");
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Invalid Input");
+            return;
+        }
 
     }
 }
