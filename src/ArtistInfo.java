@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.xml.crypto.Data;
 
 import sqlUtils.CreateArtistTable;
 
@@ -45,12 +46,13 @@ public class ArtistInfo extends JFrame implements ActionListener {
         Email = new JLabel("Email");
         DateOfBirth = new JLabel("Date of Birth");
 
-        FirstNameInput = new JTextField();
-        LastNameInput = new JTextField();
-        AddressInput = new JTextField();
-        PhoneInput = new JTextField();
-        EmailInput = new JTextField();
-        DateOfBirthInput = new JTextField();
+        String data[] = getFields();
+        FirstNameInput = new JTextField(data[0]);
+        LastNameInput = new JTextField(data[1]);
+        AddressInput = new JTextField(data[2]);
+        PhoneInput = new JTextField(data[3]);
+        EmailInput = new JTextField(data[4]);
+        DateOfBirthInput = new JTextField(data[5]);
 
         ADD = new JButton("ADD");
         ADD.addActionListener(this);
@@ -111,6 +113,34 @@ public class ArtistInfo extends JFrame implements ActionListener {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    }
+
+    private String[] getFields() {
+        String[] fields = new String[7];
+        fields[0] = "";
+        fields[1] = "";
+        fields[2] = "";
+        fields[3] = "";
+        fields[4] = "";
+        fields[5] = "";
+        try{
+            String query = "SELECT * FROM artist_info where artist_id = ?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, userdata.get("username"));
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()) {
+                fields[0] = rs.getString("first_name");
+                fields[1] = rs.getString("last_name");
+                fields[2] = rs.getString("address");
+                fields[3] = rs.getString("phone");
+                fields[4] = rs.getString("email");
+                fields[5] = rs.getString("dob");
+                return fields;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return fields;
     }
 
     public void actionPerformed(ActionEvent ae) {
@@ -257,7 +287,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Artist Removed");
                     }
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, e.getMessage());
                 }
             }
         } catch (Exception e) {
