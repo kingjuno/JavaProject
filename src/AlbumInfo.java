@@ -1,5 +1,6 @@
 import javax.swing.*;
 
+import sqlUtils.CheckForData;
 import sqlUtils.CreateAlbumTable;
 
 import java.awt.*;
@@ -9,7 +10,7 @@ import java.sql.*;
 import java.util.Hashtable;
 
 public class AlbumInfo extends JFrame implements ActionListener {
-    JButton Album_Info_Button, Song_Info_Button;
+    JButton Artist_Info_Button, Song_Info_Button,Album_Info_Button;
     JButton ADD, UPDATE, REMOVE, CLEAR, BACK;
     JPanel AlbumInfoWindow, FunctionButton, Container;
     JLabel AlbumID, AlbumName, ArtistID, no_of_songs, release_date;
@@ -22,10 +23,12 @@ public class AlbumInfo extends JFrame implements ActionListener {
         this.userdata = userdata;
         setTitle("Music Recording Management System");
 
-        Album_Info_Button = new JButton("Album Info");
-        Album_Info_Button.addActionListener(this);
+        Artist_Info_Button = new JButton("Artist Info");
+        Artist_Info_Button.addActionListener(this);
         Song_Info_Button = new JButton("Song Info");
         Song_Info_Button.addActionListener(this);
+        Album_Info_Button = new JButton("Album Info");
+        Album_Info_Button.addActionListener(this);
 
         AlbumInfoWindow = new JPanel();
         this.getContentPane().add(AlbumInfoWindow);
@@ -33,13 +36,15 @@ public class AlbumInfo extends JFrame implements ActionListener {
         AlbumInfoWindow.setBackground(new Color(68, 67, 68));
         this.setBounds(100, 100, 564, 450);
 
-        AlbumInfoWindow.add(Album_Info_Button);
-        Album_Info_Button.setBounds(65, 10, 210, 30);
+        AlbumInfoWindow.add(Artist_Info_Button);
+        Artist_Info_Button.setBounds(24, 10, 142, 30);
         AlbumInfoWindow.add(Song_Info_Button);
-        Song_Info_Button.setBounds(285, 10, 210, 30);
+        Song_Info_Button.setBounds(205, 10, 142, 30);
+        AlbumInfoWindow.add(Album_Info_Button);
+        Album_Info_Button.setBounds(381, 10, 142, 30);
 
-        AlbumID = new JLabel("First Name");
-        AlbumName = new JLabel("Last Name");
+        AlbumID = new JLabel("Album ID");
+        AlbumName = new JLabel("Album Name");
         ArtistID = new JLabel("ArtistID");
         no_of_songs = new JLabel("no. of songs");
         release_date = new JLabel("release_date");
@@ -120,7 +125,20 @@ public class AlbumInfo extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
             return;
-        } else if (ae.getSource() == Song_Info_Button) {
+        } else if (ae.getSource() == Artist_Info_Button){
+            this.dispose();
+            try{
+                ArtistInfo form = new ArtistInfo(con, userdata);
+                form.setVisible(true);
+                form.invalidate();
+                form.validate();
+                form.repaint();
+                return;
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+        else if (ae.getSource() == Song_Info_Button) {
             this.dispose();
             try {
 
@@ -181,6 +199,12 @@ public class AlbumInfo extends JFrame implements ActionListener {
                         || release_date.equals("")) {
                     JOptionPane.showMessageDialog(null, "Please fill all the fields");
                 }
+                String query = "select * from artist_info where artist_id = '" + ArtistID + "'";
+                CheckForData check = new CheckForData(con);
+                if (!check.check_data_exist(query)) {
+                    JOptionPane.showMessageDialog(null, "Artist ID does not exist");
+                    return;
+                }
                 try {
                     String sql = "SELECT * FROM Album_info";
                     PreparedStatement pst = con.prepareStatement(sql);
@@ -191,14 +215,13 @@ public class AlbumInfo extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Album Info Table is created");
                 }
                 try {
-                    String sql = "INSERT INTO Album_info (Album_id, AlbumName, ArtistID, no_of_songs, release_date) VALUES (?,?,?,?,?,?,?)";
+                    String sql = "INSERT INTO Album_info (Album_ID, AlbumName, Artist_ID, no_of_songs, release_date) VALUES (?,?,?,?,?)";
                     PreparedStatement pst = con.prepareStatement(sql);
-                    pst.setString(1, userdata.get("username"));
-                    pst.setString(2, AlbumID);
-                    pst.setString(3, AlbumName);
-                    pst.setString(4, ArtistID);
-                    pst.setLong(5, no_of_songs_number);
-                    pst.setDate(6, sqlDate);
+                    pst.setString(1, AlbumID);
+                    pst.setString(2, AlbumName);
+                    pst.setString(3, ArtistID);
+                    pst.setLong(4, no_of_songs_number);
+                    pst.setDate(5, sqlDate);
                     pst.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Album Added");
                 } catch (Exception e) {
@@ -208,20 +231,17 @@ public class AlbumInfo extends JFrame implements ActionListener {
                 try {
                     String sql = "SELECT * FROM Album_info where Album_id = ?";
                     PreparedStatement pst = con.prepareStatement(sql);
-                    pst.setString(1, userdata.get("username"));
+                    pst.setString(1, AlbumID);
                     ResultSet rs = pst.executeQuery();
-                    // if no record found display add Album
                     if (!rs.next()) {
                         JOptionPane.showMessageDialog(null, "Add Album Details first");
                     } else {
-                        String sql1 = "UPDATE Album_info SET AlbumName = ?, ArtistID = ?, no_of_songs = ?, release_date = ? WHERE Album_id = ?";
+                        String sql1 = "UPDATE Album_info SET AlbumName = ?, no_of_songs = ?, release_date = ? WHERE Album_id = ?";
                         PreparedStatement pst1 = con.prepareStatement(sql1);
-                        pst1.setString(1, AlbumID);
-                        pst1.setString(2, AlbumName);
-                        pst1.setString(3, ArtistID);
-                        pst1.setLong(4, no_of_songs_number);
-                        pst1.setString(5, release_date);
-                        pst1.setString(7, userdata.get("username"));
+                        pst1.setString(1, AlbumName);
+                        pst1.setLong(2, no_of_songs_number);
+                        pst1.setDate(3, sqlDate);
+                        pst1.setString(4, AlbumID);
                         pst1.executeUpdate();
                         JOptionPane.showMessageDialog(null, "Album Details Updated");
                     }
@@ -232,14 +252,14 @@ public class AlbumInfo extends JFrame implements ActionListener {
                 try {
                     String sql = "SELECT * FROM Album_info where Album_id = ?";
                     PreparedStatement pst = con.prepareStatement(sql);
-                    pst.setString(1, userdata.get("username"));
+                    pst.setString(1, AlbumID);
                     ResultSet rs = pst.executeQuery();
                     if (!rs.next()) {
                         JOptionPane.showMessageDialog(null, "Add Album Details first");
                     } else {
                         String sql1 = "DELETE FROM Album_info WHERE Album_id = ?";
                         PreparedStatement pst1 = con.prepareStatement(sql1);
-                        pst1.setString(1, userdata.get("username"));
+                        pst1.setString(1, AlbumID);
                         pst1.executeUpdate();
                         JOptionPane.showMessageDialog(null, "Album Removed");
                     }
@@ -252,16 +272,5 @@ public class AlbumInfo extends JFrame implements ActionListener {
             return;
         }
 
-    }
-    public static void main(String[] args) {
-        try {
-            AlbumInfo form = new AlbumInfo(null, null);
-            form.setVisible(true);
-            form.invalidate();
-            form.validate();
-            form.repaint();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
     }
 }

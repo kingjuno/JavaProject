@@ -116,7 +116,11 @@ public class Home extends JFrame implements ActionListener{
          if (ae.getSource() == btn_5) {
             this.dispose();
             try {
-                //ALBUM
+                AlbumInfo form = new AlbumInfo(con, userdata);
+                form.setVisible(true);
+                form.invalidate();
+                form.validate();
+                form.repaint();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }

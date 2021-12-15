@@ -148,8 +148,18 @@ public class SongInfo extends JFrame implements ActionListener {
             }
             
         } else if (ae.getSource() == Album_Info_Button) {
+            this.dispose();
+            try {
 
-
+                AlbumInfo form = new AlbumInfo(con, userdata);
+                form.setVisible(true);
+                form.invalidate();
+                form.validate();
+                form.repaint();
+                return;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         }
         else if (ae.getSource() == BACK) {
             this.dispose();
@@ -199,11 +209,18 @@ public class SongInfo extends JFrame implements ActionListener {
                         || album.equals("")
                         || release_year.equals("")) {
                     JOptionPane.showMessageDialog(null, "Please fill all the fields");
+                    return;
                 }
                 String query = "select * from artist_info where artist_id = '" + artist + "'";
                 CheckForData check = new CheckForData(con);
                 if (!check.check_data_exist(query)) {
                     JOptionPane.showMessageDialog(null, "Artist ID does not exist");
+                    return;
+                }
+                query = "select * from album_info where album_id = '" + album + "'";
+                if (!check.check_data_exist(query)) {
+                    JOptionPane.showMessageDialog(null, "Album ID does not exist");
+                    return;
                 }
                 try {
                     String sql = "SELECT * FROM song_info";

@@ -177,8 +177,18 @@ public class ArtistInfo extends JFrame implements ActionListener {
             }
             return;
         } else if (ae.getSource() == Album_Info_Button) {
+            this.dispose();
+            try {
 
-
+                AlbumInfo form = new AlbumInfo(con, userdata);
+                form.setVisible(true);
+                form.invalidate();
+                form.validate();
+                form.repaint();
+                return;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         }
         else if (ae.getSource() == BACK) {
             this.dispose();
