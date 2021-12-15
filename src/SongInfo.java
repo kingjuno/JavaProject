@@ -11,7 +11,7 @@ import java.util.Hashtable;
 import java.sql.*;
 
 public class SongInfo extends JFrame implements ActionListener {
-    JButton Artist_Info_Button, Song_Info_Button;
+    JButton Artist_Info_Button, Song_Info_Button,Album_Info_Button;
     JButton ADD, UPDATE, REMOVE, CLEAR, BACK;
     JPanel SongInfoWindow, FunctionButton, Container;
     JLabel SongID, SongName, Artist, Duration, Album, Release_Year;
@@ -27,6 +27,8 @@ public class SongInfo extends JFrame implements ActionListener {
         Artist_Info_Button.addActionListener(this);
         Song_Info_Button = new JButton("Song Info");
         Song_Info_Button.addActionListener(this);
+        Album_Info_Button = new JButton("Album Info");
+        Album_Info_Button.addActionListener(this);
 
         SongInfoWindow = new JPanel();
         this.getContentPane().add(SongInfoWindow);
@@ -35,9 +37,11 @@ public class SongInfo extends JFrame implements ActionListener {
         this.setBounds(100, 100, 564, 450);
 
         SongInfoWindow.add(Artist_Info_Button);
-        Artist_Info_Button.setBounds(65, 10, 210, 30);
+        Artist_Info_Button.setBounds(24, 10, 142, 30);
         SongInfoWindow.add(Song_Info_Button);
-        Song_Info_Button.setBounds(285, 10, 210, 30);
+        Song_Info_Button.setBounds(205, 10, 142, 30);
+        SongInfoWindow.add(Album_Info_Button);
+        Album_Info_Button.setBounds(381, 10, 142, 30);
 
         SongID = new JLabel("Song ID");
         SongName = new JLabel("Song Name");
@@ -142,7 +146,12 @@ public class SongInfo extends JFrame implements ActionListener {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-        } else if (ae.getSource() == BACK) {
+            
+        } else if (ae.getSource() == Album_Info_Button) {
+
+
+        }
+        else if (ae.getSource() == BACK) {
             this.dispose();
             try {
 
