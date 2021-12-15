@@ -123,6 +123,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
                 form.invalidate();
                 form.validate();
                 form.repaint();
+                return;
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
@@ -136,6 +137,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
                 form.invalidate();
                 form.validate();
                 form.repaint();
+                return;
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
@@ -149,6 +151,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
                 form.invalidate();
                 form.validate();
                 form.repaint();
+                return;
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
@@ -161,6 +164,7 @@ public class ArtistInfo extends JFrame implements ActionListener {
                 PhoneInput.setText("");
                 EmailInput.setText("");
                 DateOfBirthInput.setText("");
+                return;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

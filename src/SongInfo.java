@@ -1,4 +1,8 @@
 import javax.swing.*;
+
+import sqlUtils.CheckForData;
+import sqlUtils.CreateSongInfoTable;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.Exception;
@@ -27,21 +31,20 @@ public class SongInfo extends JFrame implements ActionListener {
         SongInfoWindow = new JPanel();
         this.getContentPane().add(SongInfoWindow);
         SongInfoWindow.setLayout(null);
-        SongInfoWindow.setBackground(new Color(68,67,68));
+        SongInfoWindow.setBackground(new Color(68, 67, 68));
         this.setBounds(100, 100, 564, 450);
-        
+
         SongInfoWindow.add(Artist_Info_Button);
         Artist_Info_Button.setBounds(65, 10, 210, 30);
         SongInfoWindow.add(Song_Info_Button);
         Song_Info_Button.setBounds(285, 10, 210, 30);
-
 
         SongID = new JLabel("Song ID");
         SongName = new JLabel("Song Name");
         Artist = new JLabel("Artist");
         Duration = new JLabel("Duration");
         Album = new JLabel("Album");
-        Release_Year = new JLabel("Release Year");
+        Release_Year = new JLabel("Release Date");
 
         SongIDInput = new JTextField();
         SongNameInput = new JTextField();
@@ -63,7 +66,7 @@ public class SongInfo extends JFrame implements ActionListener {
 
         SongID.setBounds(65, 70, 100, 30);
         SongID.setForeground(Color.WHITE);
-        SongName.setBounds(65,110, 100, 30);
+        SongName.setBounds(65, 110, 100, 30);
         SongName.setForeground(Color.WHITE);
         Artist.setBounds(65, 150, 100, 30);
         Artist.setForeground(Color.WHITE);
@@ -104,7 +107,7 @@ public class SongInfo extends JFrame implements ActionListener {
         SongInfoWindow.add(REMOVE);
         SongInfoWindow.add(CLEAR);
         SongInfoWindow.add(BACK);
-        
+
         add(SongInfoWindow, BorderLayout.CENTER);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -112,21 +115,6 @@ public class SongInfo extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent ae) {
-        String songid = SongIDInput.getText();
-        String songname = SongNameInput.getText();
-        String artist = ArtistInput.getText();
-        String duration = DurationInput.getText();
-        String album = AlbumInput.getText();
-        String release_year = Release_YearInput.getText();
-
-        // check if song_info table exists
-        // try{
-        //     String sql = "SELECT * FROM song_info";
-        //     java.sql.Statement stmt = con.createStatement();
-        //     java.sql.ResultSet rs = stmt.executeQuery(sql);
-
-        // }
-
         if (ae.getSource() == Artist_Info_Button) {
             this.dispose();
             try {
@@ -136,11 +124,12 @@ public class SongInfo extends JFrame implements ActionListener {
                 form.invalidate();
                 form.validate();
                 form.repaint();
+                return;
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                return;
             }
-        }
-        else if (ae.getSource() == Song_Info_Button) {
+        } else if (ae.getSource() == Song_Info_Button) {
             this.dispose();
             try {
 
@@ -149,11 +138,11 @@ public class SongInfo extends JFrame implements ActionListener {
                 form.invalidate();
                 form.validate();
                 form.repaint();
+                return;
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-        }
-        else if (ae.getSource() == BACK) {
+        } else if (ae.getSource() == BACK) {
             this.dispose();
             try {
 
@@ -162,46 +151,120 @@ public class SongInfo extends JFrame implements ActionListener {
                 form.invalidate();
                 form.validate();
                 form.repaint();
+                return;
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                return;
             }
-        }
-        else if (ae.getSource() == ADD)    {
-            // JDBC CONNECTION HERE
-            /*
-            [TODO]:
-            1. Add Artist
-            */
-        }
-        else if (ae.getSource() == UPDATE) {
-            // JDBC CONNECTION HERE
-            /*
-            [TODO]:
-            1. Update Artist
-            */
-        }
-        else if (ae.getSource() == REMOVE) {
-            // JDBC CONNECTION HERE
-            /*
-            [TODO]:
-            1. Remove Artist
-            */
-        }
-        else if (ae.getSource() == CLEAR) {
+        } else if (ae.getSource() == CLEAR) {
             try {
-              
+
                 SongIDInput.setText("");
                 SongNameInput.setText("");
                 ArtistInput.setText("");
                 DurationInput.setText("");
                 AlbumInput.setText("");
                 Release_YearInput.setText("");
-
-            }
-            catch (Exception e) {
+                return;
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
+                return;
             }
-            
+
+        }
+
+        try {
+            String songid = SongIDInput.getText();
+            String songname = SongNameInput.getText();
+            String artist = ArtistInput.getText();
+            String duration = DurationInput.getText();
+            Float duration1 = Float.parseFloat(duration);
+            String album = AlbumInput.getText();
+            String release_year = Release_YearInput.getText();
+            java.util.Date date = new java.util.Date(release_year);
+            java.sql.Date sqldate = new java.sql.Date(date.getTime());
+
+            if (ae.getSource() == ADD) {
+
+                if (songid.equals("") || songname.equals("") || artist.equals("") || duration.equals("")
+                        || album.equals("")
+                        || release_year.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Please fill all the fields");
+                }
+                String query = "select * from artist_info where artist_id = '" + artist + "'";
+                CheckForData check = new CheckForData(con);
+                if (!check.check_data_exist(query)) {
+                    JOptionPane.showMessageDialog(null, "Artist ID does not exist");
+                }
+                try {
+                    String sql = "SELECT * FROM song_info";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.executeQuery();
+                } catch (Exception e) {
+                    CreateSongInfoTable form = new CreateSongInfoTable(con);
+                    form.createTable();
+                    JOptionPane.showMessageDialog(null, "Song Info Table is created");
+                }
+                try {
+                    String sql = "INSERT INTO song_info (song_id, song_name, artist, duration, album, release_year) VALUES (?,?,?,?,?,?)";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, songid);
+                    pst.setString(2, songname);
+                    pst.setString(3, artist);
+                    pst.setFloat(4, duration1);
+                    pst.setString(5, album);
+                    pst.setDate(6, sqldate);
+                    pst.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Song Added");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                    return;
+                }
+
+            } else if (ae.getSource() == UPDATE) {
+                try {
+                    String sql = "SELECT * FROM song_info where song_id = ?";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, songid);
+                    ResultSet rs = pst.executeQuery();
+                    if (!rs.next()) {
+                        JOptionPane.showMessageDialog(null, "Add song Details first");
+                    } else {
+                        String sql1 = "UPDATE song_info SET song_name = ?, artist = ?, duration = ?, album = ?, release_year = ? WHERE song_id = ?";
+                        PreparedStatement pst1 = con.prepareStatement(sql1);
+                        pst1.setString(1, songname);
+                        pst1.setString(2, artist);
+                        pst1.setFloat(3, duration1);
+                        pst1.setString(4, album);
+                        pst1.setDate(5, sqldate);
+                        pst1.setString(6, songid);
+                        pst1.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "Song Details Updated");
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (ae.getSource() == REMOVE) {
+                try {
+                    String sql = "SELECT * FROM song_info where song_id = ?";
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    pst.setString(1, songid);
+                    ResultSet rs = pst.executeQuery();
+                    if (!rs.next()) {
+                        JOptionPane.showMessageDialog(null, "Add song Details first");
+                    } else {
+                        String sql1 = "DELETE FROM song_info WHERE song_id = ?";
+                        PreparedStatement pst1 = con.prepareStatement(sql1);
+                        pst1.setString(1, songid);
+                        pst1.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "Song Removed");
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Invalid Input");
         }
     }
 
