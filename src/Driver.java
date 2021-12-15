@@ -6,8 +6,8 @@ import sqlUtils.ConnectDB;
 
 public class Driver {
     public static void main(String[] args) {
-        String username = "geo";
-        String password = "6023";
+        String username = "postgres";
+        String password = "qwerty@1234";
         String url = "jdbc:postgresql://localhost:5432/music_recording";
 
         ConnectDB connectDB = new ConnectDB(username, password, url);
