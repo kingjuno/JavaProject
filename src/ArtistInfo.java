@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.Hashtable;
 
 public class ArtistInfo extends JFrame implements ActionListener {
-    JButton Artist_Info_Button, Song_Info_Button;
+    JButton Artist_Info_Button, Song_Info_Button,Album_Info_Button;
     JButton ADD, UPDATE, REMOVE, CLEAR, BACK;
     JPanel ArtistInfoWindow, FunctionButton, Container;
     JLabel FirstName, LastName, Address, Phone, Email, DateOfBirth;
@@ -27,6 +27,8 @@ public class ArtistInfo extends JFrame implements ActionListener {
         Artist_Info_Button.addActionListener(this);
         Song_Info_Button = new JButton("Song Info");
         Song_Info_Button.addActionListener(this);
+        Album_Info_Button = new JButton("Album Info");
+        Album_Info_Button.addActionListener(this);
 
         ArtistInfoWindow = new JPanel();
         this.getContentPane().add(ArtistInfoWindow);
@@ -35,9 +37,11 @@ public class ArtistInfo extends JFrame implements ActionListener {
         this.setBounds(100, 100, 564, 450);
 
         ArtistInfoWindow.add(Artist_Info_Button);
-        Artist_Info_Button.setBounds(65, 10, 210, 30);
+        Artist_Info_Button.setBounds(24, 10, 142, 30);
         ArtistInfoWindow.add(Song_Info_Button);
-        Song_Info_Button.setBounds(285, 10, 210, 30);
+        Song_Info_Button.setBounds(205, 10, 142, 30);
+        ArtistInfoWindow.add(Album_Info_Button);
+        Album_Info_Button.setBounds(381, 10, 142, 30);
 
         FirstName = new JLabel("First Name");
         LastName = new JLabel("Last Name");
@@ -172,7 +176,11 @@ public class ArtistInfo extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
             return;
-        } else if (ae.getSource() == BACK) {
+        } else if (ae.getSource() == Album_Info_Button) {
+
+
+        }
+        else if (ae.getSource() == BACK) {
             this.dispose();
             try {
 

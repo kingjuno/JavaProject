@@ -7,7 +7,7 @@ import java.util.Hashtable;
 
 public class Home extends JFrame implements ActionListener{
     JPanel Home ;
-    JButton btn_1,btn_2,btn_3, btn_4;
+    JButton btn_1,btn_2,btn_3, btn_4,btn_5;
     JLabel Search, home,icon;
     JTextField Input,Output;
     Font font;
@@ -30,7 +30,7 @@ public class Home extends JFrame implements ActionListener{
         
         icon = new JLabel("");
 		icon.setIcon(new ImageIcon(this.getClass().getResource("assets/background.png")));
-		icon.setBounds(0, 69, 398, 149);
+		icon.setBounds(-124, 122, 398, 149);
 		this.getContentPane().add(icon);
 
         home = new JLabel("HOME");
@@ -40,25 +40,30 @@ public class Home extends JFrame implements ActionListener{
         Home.add(home);
 
         btn_1 = new JButton("Add Song");
-        btn_1.setBounds(10, 273, 128, 21);
+        btn_1.setBounds(342, 140, 122, 21);
         Home.add(btn_1);
 
         btn_2 = new JButton("View Details");
-		btn_2.setBounds(283, 273, 122, 21);
+		btn_2.setBounds(342, 233, 122, 21);
 		Home.add(btn_2);
 		
 		btn_3 = new JButton("Exit");
-		btn_3.setBounds(415, 273, 128, 21);
+		btn_3.setBounds(484, 340, 56, 21);
 		Home.add(btn_3);
 
         btn_4 = new JButton("Add Artist");
-        btn_4.setBounds(148, 273, 122, 21);
+        btn_4.setBounds(342, 202, 122, 21);
         Home.add(btn_4);
+
+        btn_5 = new JButton("Add Album");
+        btn_5.setBounds(342, 171, 122, 21);
+        Home.add(btn_5);
 
         btn_1.addActionListener(this);
         btn_2.addActionListener(this);
         btn_3.addActionListener(this);
         btn_4.addActionListener(this);
+        btn_5.addActionListener(this);
 
         add(Home, BorderLayout.CENTER);
         setVisible(true);
@@ -104,6 +109,14 @@ public class Home extends JFrame implements ActionListener{
                 form.invalidate();
                 form.validate();
                 form.repaint();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+         }
+         if (ae.getSource() == btn_5) {
+            this.dispose();
+            try {
+                //ALBUM
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
