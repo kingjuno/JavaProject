@@ -82,7 +82,7 @@ public class Home extends JFrame implements ActionListener{
             this.dispose();
             try {
 
-                viewDetail form = new viewDetail();
+                viewDetail form = new viewDetail(con,userdata);
                 form.setSize(500, 400);
                 form.setVisible(true);
                 form.invalidate();
