@@ -11,7 +11,7 @@ import java.util.Hashtable;
 
 public class feedback_info extends JFrame implements ActionListener {
     JButton Artist_Info_Button, Song_Info_Button,Album_Info_Button;
-    JButton BACK, SUBMIT;
+    JButton BACK, SUBMIT, VIEW;
     JPanel feedback_infoWindow, FunctionButton, Container;
     JLabel feedback,username, songid;
     JTextField feedbackInput, usernameInput, songidInput;
@@ -55,6 +55,9 @@ public class feedback_info extends JFrame implements ActionListener {
         SUBMIT = new JButton("SUBMIT");
         SUBMIT.setBounds(323, 320, 100, 30);
         SUBMIT.addActionListener(this);
+        VIEW = new JButton("VIEW");
+        VIEW.setBounds(461, 320, 100, 30);
+        VIEW.addActionListener(this);
 
         feedback_infoWindow.add(username);
         feedback_infoWindow.add(usernameInput);
@@ -64,6 +67,7 @@ public class feedback_info extends JFrame implements ActionListener {
         feedback_infoWindow.add(feedbackInput);      
         feedback_infoWindow.add(BACK);
         feedback_infoWindow.add(SUBMIT);
+        feedback_infoWindow.add(VIEW);
 
         add(feedback_infoWindow, BorderLayout.CENTER);
         setVisible(true);
@@ -117,6 +121,8 @@ public class feedback_info extends JFrame implements ActionListener {
             } catch (SQLException e1) {
                 JOptionPane.showMessageDialog(null, e1.getMessage());
             }
+        }else if(e.getSource() == VIEW){
+            viewFeedback viewfeedback = new viewFeedback(con, songidInput.getText());
         }
         
     }
