@@ -6,7 +6,7 @@ import java.util.Hashtable;
 
 public class Home extends JFrame implements ActionListener {
     JPanel Home;
-    JButton btn_1, btn_2, btn_3, btn_4, btn_5;
+    JButton btn_1, btn_2, btn_3, btn_4, btn_5, btn_6;
     JLabel Search, home, icon;
     JTextField Input, Output;
     Font font;
@@ -38,11 +38,11 @@ public class Home extends JFrame implements ActionListener {
         Home.add(home);
 
         btn_1 = new JButton("Add Song");
-        btn_1.setBounds(342, 140, 122, 21);
+        btn_1.setBounds(342, 140, 150, 21);
         Home.add(btn_1);
 
         btn_2 = new JButton("View Details");
-        btn_2.setBounds(342, 233, 122, 21);
+        btn_2.setBounds(342, 233, 150, 21);
         Home.add(btn_2);
 
         btn_3 = new JButton("Exit");
@@ -50,18 +50,22 @@ public class Home extends JFrame implements ActionListener {
         Home.add(btn_3);
 
         btn_4 = new JButton("Add Artist");
-        btn_4.setBounds(342, 202, 122, 21);
+        btn_4.setBounds(342, 202, 150, 21);
         Home.add(btn_4);
 
         btn_5 = new JButton("Add Album");
-        btn_5.setBounds(342, 171, 122, 21);
+        btn_5.setBounds(342, 171, 150, 21);
         Home.add(btn_5);
+
+        btn_6 = new JButton("Add Feedback");
+        btn_6.setBounds(342, 263, 150, 21);
+        Home.add(btn_6);
 
 
         btn_1.addActionListener(this);
         btn_4.addActionListener(this);
         btn_5.addActionListener(this);
-
+        btn_6.addActionListener(this);
         btn_2.addActionListener(this);
         btn_3.addActionListener(this);
 
@@ -69,6 +73,7 @@ public class Home extends JFrame implements ActionListener {
             btn_1.setEnabled(false);
             btn_4.setEnabled(false);
             btn_5.setEnabled(false);
+            btn_6.setEnabled(false);
         }
 
         add(Home, BorderLayout.CENTER);
@@ -124,6 +129,19 @@ public class Home extends JFrame implements ActionListener {
             this.dispose();
             try {
                 AlbumInfo form = new AlbumInfo(con, userdata);
+                form.setVisible(true);
+                form.invalidate();
+                form.validate();
+                form.repaint();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+
+        if (ae.getSource() == btn_6) {
+            this.dispose();
+            try {
+                feedback_info form = new feedback_info(con, userdata);
                 form.setVisible(true);
                 form.invalidate();
                 form.validate();
