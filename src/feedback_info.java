@@ -30,33 +30,33 @@ public class feedback_info extends JFrame implements ActionListener {
         feedback_infoWindow.setBackground(new Color(68, 67, 68));
         this.setBounds(100, 100, 564, 450);
 
-        username = new JLabel("username");
+        username = new JLabel("Username");
         usernameInput = new JTextField(userdata.get("username"));
         usernameInput.setEditable(false);
-        username.setBounds(65, 70, 100, 30);
+        username.setBounds(45, 70, 100, 30);
         username.setForeground(Color.WHITE);
-        usernameInput.setBounds(210, 70, 285, 30);
+        usernameInput.setBounds(165, 70, 330, 30);
 
-        songid = new JLabel("songid");
+        songid = new JLabel("Songid");
         songidInput = new JTextField();
-        songid.setBounds(65, 120, 100, 30);
+        songid.setBounds(45, 120, 100, 30);
         songid.setForeground(Color.WHITE);
-        songidInput.setBounds(210, 120, 285, 30);
+        songidInput.setBounds(165, 120, 330, 30);
 
-        feedback = new JLabel("feedback");
+        feedback = new JLabel("Feedback");
         feedbackInput = new JTextField("");
-        feedback.setBounds(65, 170, 100, 30);
+        feedback.setBounds(45, 170, 100, 30);
         feedback.setForeground(Color.WHITE);
-        feedbackInput.setBounds(210, 170, 285, 120);
+        feedbackInput.setBounds(165, 170, 330, 120);
 
         BACK = new JButton("BACK");
-        BACK.setBounds(185, 320, 100, 30);
+        BACK.setBounds(165, 320, 100, 30);
         BACK.addActionListener(this);
         SUBMIT = new JButton("SUBMIT");
-        SUBMIT.setBounds(323, 320, 100, 30);
+        SUBMIT.setBounds(395, 320, 100, 30);
         SUBMIT.addActionListener(this);
         VIEW = new JButton("VIEW");
-        VIEW.setBounds(461, 320, 100, 30);
+        VIEW.setBounds(280, 320, 100, 30);
         VIEW.addActionListener(this);
 
         feedback_infoWindow.add(username);
@@ -119,22 +119,14 @@ public class feedback_info extends JFrame implements ActionListener {
                     }
                 }
             } catch (SQLException e1) {
-                JOptionPane.showMessageDialog(null, e1.getMessage());
+                CreateFeedBackTable table = new CreateFeedBackTable(con);
+                table.createTable();
+                JOptionPane.showMessageDialog(null, "Feedback_info Table created");
             }
         }else if(e.getSource() == VIEW){
             viewFeedback viewfeedback = new viewFeedback(con, songidInput.getText());
         }
         
     }
-    public static void main(String[] args) {
-        String username = "geo";
-        String password = "6023";
-        String url = "jdbc:postgresql://localhost:5432/music_recording";
 
-        ConnectDB connectDB = new ConnectDB(username, password, url);
-        Connection con = connectDB.getConnection();
-        
-        feedback_info feedback_info = new feedback_info(con, null);
-        feedback_info.setVisible(true);
-    }
 }

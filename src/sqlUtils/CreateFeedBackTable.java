@@ -11,7 +11,7 @@ public class CreateFeedBackTable {
     public void createTable() {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "CREATE TABLE feedback_info (song_id varchar(20) ,user_id varchar(20),feedback_para varchar (1000), FOREIGN KEY (song_id) REFERENCES song_info(song_id) ,FOREIGN KEY (user_id) REFERENCES user_info (user_id));";
+            String sql = "CREATE TABLE feedback_info (song_id varchar(20) ,user_id varchar(20),feedback_para varchar (1000));";
             stmt.executeUpdate(sql);
             String userName = conn.getMetaData().getUserName();
             sql = "GRANT ALL PRIVILEGES ON TABLE feedback_info to " + userName +";";
