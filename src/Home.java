@@ -69,11 +69,10 @@ public class Home extends JFrame implements ActionListener {
         btn_2.addActionListener(this);
         btn_3.addActionListener(this);
 
-        if (userdata.get("role").equals("user")) {
+        if (userdata.get("role").equals("User")) {
             btn_1.setEnabled(false);
             btn_4.setEnabled(false);
             btn_5.setEnabled(false);
-            btn_6.setEnabled(false);
         }
 
         add(Home, BorderLayout.CENTER);
